@@ -1,6 +1,6 @@
 ## Compilers Dircetory
 
-1st etap
+1. Scanner
 ```
  Zadanie polega na stworzeniu analizatora leksykalnego (skanera) dla prostego języka umożliwiającego obliczenia na macierzach. Analizator leksykalny powinien rozpoznawać następujące leksemy:
 
@@ -32,4 +32,22 @@ Następujące znaki powinny być pomijane:
 
     białe znaki: spacje, tabulatory, znaki nowej linii
     komentarze: komentarze rozpoczynające się znakiem # do znaku końca linii 
+```
+2. Parser
+```
+ Zadanie polega na stworzeniu parsera, który powinien akceptować kod źródłowy w formie tokenów i tworzyć drzewo syntaktyczne. Parser powinien rozpoznawać następujące konstrukcje:
+
+    wyrażenia binarne, w tym operacje macierzowe 'element po elemencie'
+    wyrażenia relacyjne,
+    negację unarną,
+    transpozycję macierzy,
+    inicjalizację macierzy konkretnymi wartościami,
+    macierzowe funkcje specjalne,
+    instrukcję przypisania, w tym różne operatory przypisania
+    instrukcję warunkową if-else,
+    pętle: while and for,
+    instrukcje break, continue oraz return,
+    instrukcję print,
+    instrukcje złożone,
+    tablice oraz ich zakresy. 
 ```
