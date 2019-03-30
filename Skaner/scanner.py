@@ -5,8 +5,8 @@ import ply.lex as lex
 
 reserved = {
     'if': 'IF',
-    'then': 'THEN',
     'else': 'ELSE',
+    'for': 'FOR',
     'while': 'WHILE',
     'break': 'BREAK',
     'continue': 'CONTINUE',
@@ -18,11 +18,6 @@ reserved = {
 }
 
 tokens = [
-    'PLUS',
-    'MINUS',
-    'TIMES',
-    'DIVIDE',  # literals
-
     'DOTPLUS',
     'DOTMINUS',
     'DOTTIMES',
@@ -41,19 +36,7 @@ tokens = [
     'GQ',
     'NE',
 
-    'LPAREN',
-    'RPAREN',
-    'LPARENSQUARED',
-    'RPARENSQUARED',
-    'LPARENCLAMRE',
-    'RPARENCLAMRE',  # literals
-
-    'REACH',  # literals
-
     'TRANSPOSITION',  # literals
-
-    'COMA',
-    'SEMICOLON',  # literals
 
     'ID',
     'INTEGER',
@@ -61,9 +44,9 @@ tokens = [
     'STRING'  # functions
 ] + list(reserved.values())
 
-literals = "+-*/':,;()[]{}"
+literals = "+-*/:,;()[]{}"
 
-
+t_TRANSPOSITION = r'\''
 t_ignore = ' \t'
 
 
@@ -115,6 +98,41 @@ def t_DOTDIVIDE(t):
     return t
 
 
+def t_GQ(t):
+    r'>='
+    t.value = ">="
+    return t
+
+
+def t_LQ(t):
+    r'<='
+    t.value = "<="
+    return t
+
+def t_EQ(t):
+    r'=='
+    t.value = "=="
+    return t
+
+
+def t_LT(t):
+    r'<'
+    t.value = "<"
+    return t
+
+
+def t_GT(t):
+    r'>'
+    t.value = ">"
+    return t
+
+
+def t_NE(t):
+    r'!='
+    t.value = "!="
+    return t
+
+
 def t_ASSIGN(t):
     r'='
     t.value = "="
@@ -142,42 +160,6 @@ def t_TIMESASSIGN(t):
 def t_DIVIDEASSIGN(t):
     r'\/='
     t.value = "/="
-    return t
-
-
-def t_EQ(t):
-    r'=='
-    t.value = "=="
-    return t
-
-
-def t_LT(t):
-    r'<'
-    t.value = "<"
-    return t
-
-
-def t_GT(t):
-    r'>'
-    t.value = ">"
-    return t
-
-
-def t_GE(t):
-    r'>='
-    t.value = ">="
-    return t
-
-
-def t_LE(t):
-    r'<='
-    t.value = "<="
-    return t
-
-
-def t_NE(t):
-    r'!='
-    t.value = "!="
     return t
 
 
