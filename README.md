@@ -51,3 +51,17 @@ Następujące znaki powinny być pomijane:
     instrukcje złożone,
     tablice oraz ich zakresy. 
 ```
+3. Drzewo syntaktyczne
+```
+ Zadanie polega na stworzeniu i wypisaniu abstrakcyjnego drzewa składni (ang. abstract syntax tree, AST). Drzewo składni powinno uwzględniać w swoich węzłach następujące konstrukcje:
+
+    wyrażenia binarne,
+    wyrażenia relacyjne,
+    instrukcje przypisania,
+    instrukcje warunkowe if-else,
+    pętle: while oraz for,
+    instrukcje break, continue oraz return,
+    instrukcje print,
+    instrukcje złożone,
+    tablice oraz ich zakresy. 
+```
