@@ -8,11 +8,8 @@ lexer = scanner.lexer
 tokens = scanner.tokens
 
 precedence = (
- #  ('nonassoc', 'RETURN'),
    ('nonassoc', 'IF_NO_ELSE'),
    ('nonassoc', 'ELSE'),
-#   ('nonassoc', 'ID'),
-#   ('nonassoc', 'PRINT'),
    ('right', 'ASSIGN', 'PLUSASSIGN', 'MINUSASSIGN', 'TIMESASSIGN', 'DIVIDEASSIGN'),
    ('left', 'EQ', 'LT', 'GT', 'LQ', 'GQ', 'NE'),
    ("left", '+', '-', 'DOTPLUS', 'DOTMINUS'),
@@ -149,7 +146,7 @@ def p_indexes(p):
         p[0] = p[1]
         p[0].add_index(check_type(p[3]))
     else:
-        p[0] = AST.Indexes(check_type([1]))
+        p[0] = AST.Indexes(check_type(p[1]))
 
 
 def p_condition(p):
@@ -184,11 +181,8 @@ def p_expression_matrix(p):
 
 def p_matrix(p):
     """matrix : '[' vectors ']'
-        | matrix_elements"""
-    if len(p) == 4:
-        p[0] = p[2]
-    else:
-        p[0] = p[1]
+        | '[' matrix_elements ']'"""
+    p[0] = p[2]
 
 
 def p_vectors(p):
@@ -218,7 +212,7 @@ def p_matrix_elements(p):
 
     if len(p) == 4:
         p[0] = p[1]
-        p[0].add_number(check_type([3]))
+        p[0].add_number(check_type(p[3]))
     elif len(p) == 2:
         p[0] = AST.Vector(check_type(p[1]))
 
