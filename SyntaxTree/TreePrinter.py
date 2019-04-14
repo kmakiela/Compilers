@@ -41,7 +41,7 @@ class TreePrinter:
     def printTree(self, indent=0):
         self.print_indented(self._if, indent)
         self.condition.printTree(indent + 1)
-        self.print_indented(self._then, indent)
+        self.print_indented(self.then, indent)
         self.if_instruction.printTree(indent + 1)
         self.print_indented(self._else, indent)
         self.else_instruction.printTree(indent + 1)
@@ -51,15 +51,15 @@ class TreePrinter:
         self.print_indented(self._for, indent)
         self.print_indented(self.id, indent + 1)
         self.print_indented(self.range, indent + 1)
-        self.print_indented(str(self.start_loop), indent + 2)
-        self.print_indented(str(self.stop_loop), indent + 2)
+        self.start_loop.printTree(indent + 2)
+        self.stop_loop.printTree(indent + 2)
         self.instruction.printTree(indent + 1)
 
     @addToClass(AST.While)
     def printTree(self, indent=0):
         self.print_indented(self._while, indent)
         self.condition.printTree(indent + 1)
-        self.expression.printTree(indent + 1)
+        self.instruction.printTree(indent + 1)
 
     @addToClass(AST.Assign)
     def printTree(self, indent=0):
@@ -78,13 +78,13 @@ class TreePrinter:
     @addToClass(AST.Return)
     def printTree(self, indent=0):
         self.print_indented(self._return, indent)
-        for expr in self.expressions.elems:
+        for expr in self.expressions.expressions:
             expr.printTree(indent + 1)
 
     @addToClass(AST.Print)
     def printTree(self, indent=0):
         self.print_indented(self._print, indent)
-        for expr in self.expressions.elems:
+        for expr in self.expressions.expressions:
             expr.printTree(indent + 1)
 
     @addToClass(AST.Variable)
@@ -129,7 +129,7 @@ class TreePrinter:
     @addToClass(AST.Vector)
     def printTree(self, indent=0):
         self.print_indented(self.vector, indent)
-        for n in self.numbers:
+        for i, n in enumerate(self.numbers):
             n.printTree(indent + 1)
 
     @addToClass(AST.BinaryExpression)

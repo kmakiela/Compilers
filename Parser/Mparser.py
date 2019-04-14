@@ -219,7 +219,7 @@ def p_matrix_elements(p):
     if len(p) == 4:
         p[0] = p[1]
         p[0].add_number(check_type([3]))
-    else:
+    elif len(p) == 2:
         p[0] = AST.Vector(check_type(p[1]))
 
 
