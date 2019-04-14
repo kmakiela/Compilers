@@ -2,16 +2,17 @@
 
 import Skaner.scanner as scanner
 import ply.yacc as yacc
+import SyntaxTree.AST as AST
 
-
+lexer = scanner.lexer
 tokens = scanner.tokens
 
 precedence = (
-   ('nonassoc', 'RETURN'),
+ #  ('nonassoc', 'RETURN'),
    ('nonassoc', 'IF_NO_ELSE'),
    ('nonassoc', 'ELSE'),
-   ('nonassoc', 'ID'),
-   ('nonassoc', 'PRINT'),
+#   ('nonassoc', 'ID'),
+#   ('nonassoc', 'PRINT'),
    ('right', 'ASSIGN', 'PLUSASSIGN', 'MINUSASSIGN', 'TIMESASSIGN', 'DIVIDEASSIGN'),
    ('left', 'EQ', 'LT', 'GT', 'LQ', 'GQ', 'NE'),
    ("left", '+', '-', 'DOTPLUS', 'DOTMINUS'),
@@ -29,47 +30,53 @@ def p_error(p):
 
 
 def p_program(p):
-    """program : instructions_opt"""
-
-
-def p_instructions_opt_1(p):
-    """instructions_opt : instructions """
-
-
-def p_instructions_opt_2(p):
-    """instructions_opt : """
+    """program : instructions
+        | """
+    if len(p) == 2:
+        p[0] = AST.Program(p[1])
+    else:
+        p[0] = AST.Program()
 
 
 def p_instructions_1(p):
     """instructions : instructions instruction """
+    p[0] = p[1]
+    p[0].add_instruction(p[2])
 
 
 def p_instructions_2(p):
     """instructions : instruction """
+    p[0] = AST.Instructions(p[1])
 
 
 def p_instruction_if(p):
     """instruction : IF '(' condition ')' instruction %prec IF_NO_ELSE"""
+    p[0] = AST.If(p[3], p[5])
     
 
 def p_instruction_if_else(p):
     """instruction : IF '(' condition ')' instruction ELSE instruction"""
+    p[0] = AST.IfElse(p[3], p[5], p[7])
 
 
 def p_instruction_for(p):
     """instruction : FOR ID ASSIGN expression ':' expression instruction"""
+    p[0] = AST.For(p[2], p[4], p[6], p[7])
 
 
 def p_instruction_while(p):
     """instruction : WHILE '(' condition ')' instruction"""
+    p[0] = AST.While(p[3], p[5])
 
 
 def p_instruction_block(p):
     """instruction : '{' instructions '}'"""
+    p[0] = p[2]
 
 
 def p_instruction_semicolon(p):
     """instruction : one_line_instruction ';'"""
+    p[0] = p[1]
 
 
 def p_assign(p):
@@ -78,39 +85,71 @@ def p_assign(p):
         | left_value MINUSASSIGN expression
         | left_value TIMESASSIGN expression
         | left_value DIVIDEASSIGN expression"""
+    p[0] = AST.Assign(p[1], p[2], p[3])
 
 
-def p_keywords(p):
-    """one_line_instruction : BREAK
-        | CONTINUE
-        | RETURN expressions
-        | PRINT expressions"""
+def p_instruction_return(p):
+    """one_line_instruction : RETURN expressions"""
+    p[0] = AST.Return(p[2])
+
+
+def p_instruction_break(p):
+    """one_line_instruction : BREAK"""
+    p[0] = AST.Break()
+
+
+def p_instruction_print(p):
+    """one_line_instruction : PRINT expressions"""
+    p[0] = AST.Print(p[2])
+
+
+def p_instruction_continue(p):
+    """one_line_instruction : CONTINUE"""
+    p[0] = AST.Continue()
 
 
 def p_expressions(p):
     """expressions : expressions ',' expression
         | expression"""
+    if len(p) == 4:
+        p[0] = p[1]
+        p[0].add_expression(p[3])
+    else:
+        p[0] = AST.Expressions(p[1])
 
 
-def p_left_value(p):
-    """expression : left_value
-        left_value : ID
-            | matrix_id"""
+def p_left_value_expr(p):
+    """expression : left_value"""
+    p[0] = p[1]
+
+
+def p_left_value_id(p):
+    """left_value : ID"""
+    p[0] = AST.Variable(p[1])
+
+
+def p_left_value_matrix(p):
+    """left_value : matrix_id"""
+    p[0] = p[1]
 
 
 def p_matrix_id(p):
     """matrix_id : ID '[' indexes ']'"""
+    p[0] = AST.Reference(p[1], p[3])
 
 
 def p_indexes(p):
-    """indexes : indexes ',' index
-        | index
-        | index ':' index"""
-
-
-def p_index(p):
-    """index : ID
-        | INTEGER"""
+    """indexes : indexes ',' ID
+        | indexes ',' INTEGER
+        | INTEGER
+        | ID"""
+    def check_type(elem):
+        return AST.Integer(elem) if isinstance(elem, int) else elem
+    if len(p) == 4:
+        p[0] = p[1]
+        p[0].add_index(check_type(p[3]))
+    else:
+        p[0] = AST.Indexes(check_type([1]))
 
 
 def p_condition(p):
@@ -120,35 +159,68 @@ def p_condition(p):
         | expression LQ expression
         | expression GQ expression
         | expression NE expression"""
+    p[0] = AST.Condition(p[1], p[2], p[3])
 
 
-def p_expression(p):
-    """expression : INTEGER
-        | FLOAT
-        | STRING
-        | matrix"""
+def p_expression_int(p):
+    """expression : INTEGER"""
+    p[0] = AST.Integer(p[1])
+
+
+def p_expression_float(p):
+    """expression : FLOAT"""
+    p[0] = AST.Float(p[1])
+
+
+def p_expression_string(p):
+    """expression : STRING"""
+    p[0] = AST.String(p[1])
+
+
+def p_expression_matrix(p):
+    """expression : matrix"""
+    p[0] = p[1]
 
 
 def p_matrix(p):
-    """matrix : '[' matrices ']'
-        | '[' vectors ']'"""
-
-
-def p_matrices(p):
-    """matrices : matrices ',' matrix
-        | matrix"""
+    """matrix : '[' vectors ']'
+        | matrix_elements"""
+    if len(p) == 4:
+        p[0] = p[2]
+    else:
+        p[0] = p[1]
 
 
 def p_vectors(p):
-    """vectors : vectors ';' matrix_elements
-        | matrix_elements"""
+    """vectors : vectors ',' vector
+        | vector"""
+    if len(p) == 4:
+        p[0] = p[1]
+        p[0].add_vector(p[3])
+    else:
+        p[0] = AST.Matrix(p[1])
+
+
+def p_vector(p):
+    """vector : '[' matrix_elements ']' """
+    p[0] = p[2]
 
 
 def p_matrix_elements(p):
-    """matrix_elements : matrix_elements ',' index
+    """matrix_elements : matrix_elements ',' ID
         | matrix_elements ',' FLOAT
-        | index
+        | matrix_elements ',' INTEGER
+        | ID
+        | INTEGER
         | FLOAT"""
+    def check_type(elem):
+        return AST.Integer(elem) if isinstance(elem, int) else AST.Float(elem) if isinstance(elem, float) else elem
+
+    if len(p) == 4:
+        p[0] = p[1]
+        p[0].add_number(check_type([3]))
+    else:
+        p[0] = AST.Vector(check_type(p[1]))
 
 
 def p_operators(p):
@@ -156,6 +228,7 @@ def p_operators(p):
         | expression '-' expression
         | expression '*' expression
         | expression '/' expression"""
+    p[0] = AST.BinaryExpression(p[1], p[2], p[3])
 
 
 def p_dot_operators(p):
@@ -163,21 +236,24 @@ def p_dot_operators(p):
         | expression DOTMINUS expression
         | expression DOTTIMES expression
         | expression DOTDIVIDE expression"""
+    p[0] = AST.BinaryExpression(p[1], p[2], p[3])
 
 
 def p_array_functions(p):
     """expression : ZEROS '(' expression ')'
         | ONES '(' expression ')'
         | EYE '(' expression ')'"""
+    p[0] = AST.MatrixFunctions(p[1], p[3])
 
 
 def p_unary_negation(p):
     """expression : '-' expression %prec UNARY_NEGATION"""
+    p[0] = AST.UnaryNegation(p[1], p[2])
 
 
 def p_transposition(p):
     """expression : expression TRANSPOSITION"""
-
+    p[0] = AST.Transposition(p[1])
 
 parser = yacc.yacc()
 
