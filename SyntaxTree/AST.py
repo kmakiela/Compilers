@@ -84,7 +84,7 @@ class Continue(Node):
 
 class Return(Node):
     def __init__(self, expressions):
-        self._break = "BREAK"
+        self._return = "RETURN"
         self.expressions = expressions
 
 

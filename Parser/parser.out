@@ -1,0 +1,3673 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> instructions
+Rule 2     program -> <empty>
+Rule 3     instructions -> instructions instruction
+Rule 4     instructions -> instruction
+Rule 5     instruction -> IF ( condition ) instruction
+Rule 6     instruction -> IF ( condition ) instruction ELSE instruction
+Rule 7     instruction -> FOR ID ASSIGN expression : expression instruction
+Rule 8     instruction -> WHILE ( condition ) instruction
+Rule 9     instruction -> { instructions }
+Rule 10    instruction -> one_line_instruction ;
+Rule 11    one_line_instruction -> left_value ASSIGN expression
+Rule 12    one_line_instruction -> left_value PLUSASSIGN expression
+Rule 13    one_line_instruction -> left_value MINUSASSIGN expression
+Rule 14    one_line_instruction -> left_value TIMESASSIGN expression
+Rule 15    one_line_instruction -> left_value DIVIDEASSIGN expression
+Rule 16    one_line_instruction -> RETURN expressions
+Rule 17    one_line_instruction -> BREAK
+Rule 18    one_line_instruction -> PRINT expressions
+Rule 19    one_line_instruction -> CONTINUE
+Rule 20    expressions -> expressions , expression
+Rule 21    expressions -> expression
+Rule 22    expression -> left_value
+Rule 23    left_value -> ID
+Rule 24    left_value -> matrix_id
+Rule 25    matrix_id -> ID [ indexes ]
+Rule 26    indexes -> indexes , ID
+Rule 27    indexes -> indexes , INTEGER
+Rule 28    indexes -> INTEGER
+Rule 29    indexes -> ID
+Rule 30    condition -> expression EQ expression
+Rule 31    condition -> expression LT expression
+Rule 32    condition -> expression GT expression
+Rule 33    condition -> expression LQ expression
+Rule 34    condition -> expression GQ expression
+Rule 35    condition -> expression NE expression
+Rule 36    expression -> INTEGER
+Rule 37    expression -> FLOAT
+Rule 38    expression -> STRING
+Rule 39    expression -> matrix
+Rule 40    matrix -> [ vectors ]
+Rule 41    matrix -> [ matrix_elements ]
+Rule 42    vectors -> vectors , vector
+Rule 43    vectors -> vector
+Rule 44    vector -> [ matrix_elements ]
+Rule 45    matrix_elements -> matrix_elements , ID
+Rule 46    matrix_elements -> matrix_elements , FLOAT
+Rule 47    matrix_elements -> matrix_elements , INTEGER
+Rule 48    matrix_elements -> ID
+Rule 49    matrix_elements -> INTEGER
+Rule 50    matrix_elements -> FLOAT
+Rule 51    expression -> expression + expression
+Rule 52    expression -> expression - expression
+Rule 53    expression -> expression * expression
+Rule 54    expression -> expression / expression
+Rule 55    expression -> expression DOTPLUS expression
+Rule 56    expression -> expression DOTMINUS expression
+Rule 57    expression -> expression DOTTIMES expression
+Rule 58    expression -> expression DOTDIVIDE expression
+Rule 59    expression -> ZEROS ( expression )
+Rule 60    expression -> ONES ( expression )
+Rule 61    expression -> EYE ( expression )
+Rule 62    expression -> - expression
+Rule 63    expression -> expression TRANSPOSITION
+
+Terminals, with rules where they appear
+
+(                    : 5 6 8 59 60 61
+)                    : 5 6 8 59 60 61
+*                    : 53
++                    : 51
+,                    : 20 26 27 42 45 46 47
+-                    : 52 62
+/                    : 54
+:                    : 7
+;                    : 10
+ASSIGN               : 7 11
+BREAK                : 17
+CONTINUE             : 19
+DIVIDEASSIGN         : 15
+DOTDIVIDE            : 58
+DOTMINUS             : 56
+DOTPLUS              : 55
+DOTTIMES             : 57
+ELSE                 : 6
+EQ                   : 30
+EYE                  : 61
+FLOAT                : 37 46 50
+FOR                  : 7
+GQ                   : 34
+GT                   : 32
+ID                   : 7 23 25 26 29 45 48
+IF                   : 5 6
+INTEGER              : 27 28 36 47 49
+LQ                   : 33
+LT                   : 31
+MINUSASSIGN          : 13
+NE                   : 35
+ONES                 : 60
+PLUSASSIGN           : 12
+PRINT                : 18
+RETURN               : 16
+STRING               : 38
+TIMESASSIGN          : 14
+TRANSPOSITION        : 63
+WHILE                : 8
+ZEROS                : 59
+[                    : 25 40 41 44
+]                    : 25 40 41 44
+error                : 
+{                    : 9
+}                    : 9
+
+Nonterminals, with rules where they appear
+
+condition            : 5 6 8
+expression           : 7 7 11 12 13 14 15 20 21 30 30 31 31 32 32 33 33 34 34 35 35 51 51 52 52 53 53 54 54 55 55 56 56 57 57 58 58 59 60 61 62 63
+expressions          : 16 18 20
+indexes              : 25 26 27
+instruction          : 3 4 5 6 6 7 8
+instructions         : 1 3 9
+left_value           : 11 12 13 14 15 22
+matrix               : 39
+matrix_elements      : 41 44 45 46 47
+matrix_id            : 24
+one_line_instruction : 10
+program              : 0
+vector               : 42 43
+vectors              : 40 42
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . instructions
+    (2) program -> .
+    (3) instructions -> . instructions instruction
+    (4) instructions -> . instruction
+    (5) instruction -> . IF ( condition ) instruction
+    (6) instruction -> . IF ( condition ) instruction ELSE instruction
+    (7) instruction -> . FOR ID ASSIGN expression : expression instruction
+    (8) instruction -> . WHILE ( condition ) instruction
+    (9) instruction -> . { instructions }
+    (10) instruction -> . one_line_instruction ;
+    (11) one_line_instruction -> . left_value ASSIGN expression
+    (12) one_line_instruction -> . left_value PLUSASSIGN expression
+    (13) one_line_instruction -> . left_value MINUSASSIGN expression
+    (14) one_line_instruction -> . left_value TIMESASSIGN expression
+    (15) one_line_instruction -> . left_value DIVIDEASSIGN expression
+    (16) one_line_instruction -> . RETURN expressions
+    (17) one_line_instruction -> . BREAK
+    (18) one_line_instruction -> . PRINT expressions
+    (19) one_line_instruction -> . CONTINUE
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (25) matrix_id -> . ID [ indexes ]
+
+    $end            reduce using rule 2 (program -> .)
+    IF              shift and go to state 12
+    FOR             shift and go to state 2
+    WHILE           shift and go to state 10
+    {               shift and go to state 11
+    RETURN          shift and go to state 8
+    BREAK           shift and go to state 7
+    PRINT           shift and go to state 3
+    CONTINUE        shift and go to state 14
+    ID              shift and go to state 4
+
+    instruction                    shift and go to state 5
+    one_line_instruction           shift and go to state 15
+    left_value                     shift and go to state 9
+    program                        shift and go to state 6
+    instructions                   shift and go to state 1
+    matrix_id                      shift and go to state 13
+
+state 1
+
+    (1) program -> instructions .
+    (3) instructions -> instructions . instruction
+    (5) instruction -> . IF ( condition ) instruction
+    (6) instruction -> . IF ( condition ) instruction ELSE instruction
+    (7) instruction -> . FOR ID ASSIGN expression : expression instruction
+    (8) instruction -> . WHILE ( condition ) instruction
+    (9) instruction -> . { instructions }
+    (10) instruction -> . one_line_instruction ;
+    (11) one_line_instruction -> . left_value ASSIGN expression
+    (12) one_line_instruction -> . left_value PLUSASSIGN expression
+    (13) one_line_instruction -> . left_value MINUSASSIGN expression
+    (14) one_line_instruction -> . left_value TIMESASSIGN expression
+    (15) one_line_instruction -> . left_value DIVIDEASSIGN expression
+    (16) one_line_instruction -> . RETURN expressions
+    (17) one_line_instruction -> . BREAK
+    (18) one_line_instruction -> . PRINT expressions
+    (19) one_line_instruction -> . CONTINUE
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (25) matrix_id -> . ID [ indexes ]
+
+    $end            reduce using rule 1 (program -> instructions .)
+    IF              shift and go to state 12
+    FOR             shift and go to state 2
+    WHILE           shift and go to state 10
+    {               shift and go to state 11
+    RETURN          shift and go to state 8
+    BREAK           shift and go to state 7
+    PRINT           shift and go to state 3
+    CONTINUE        shift and go to state 14
+    ID              shift and go to state 4
+
+    instruction                    shift and go to state 16
+    one_line_instruction           shift and go to state 15
+    left_value                     shift and go to state 9
+    matrix_id                      shift and go to state 13
+
+state 2
+
+    (7) instruction -> FOR . ID ASSIGN expression : expression instruction
+
+    ID              shift and go to state 17
+
+
+state 3
+
+    (18) one_line_instruction -> PRINT . expressions
+    (20) expressions -> . expressions , expression
+    (21) expressions -> . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expressions                    shift and go to state 20
+    expression                     shift and go to state 29
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 4
+
+    (23) left_value -> ID .
+    (25) matrix_id -> ID . [ indexes ]
+
+    +               reduce using rule 23 (left_value -> ID .)
+    -               reduce using rule 23 (left_value -> ID .)
+    *               reduce using rule 23 (left_value -> ID .)
+    /               reduce using rule 23 (left_value -> ID .)
+    DOTPLUS         reduce using rule 23 (left_value -> ID .)
+    DOTMINUS        reduce using rule 23 (left_value -> ID .)
+    DOTTIMES        reduce using rule 23 (left_value -> ID .)
+    DOTDIVIDE       reduce using rule 23 (left_value -> ID .)
+    TRANSPOSITION   reduce using rule 23 (left_value -> ID .)
+    ,               reduce using rule 23 (left_value -> ID .)
+    ;               reduce using rule 23 (left_value -> ID .)
+    EQ              reduce using rule 23 (left_value -> ID .)
+    LT              reduce using rule 23 (left_value -> ID .)
+    GT              reduce using rule 23 (left_value -> ID .)
+    LQ              reduce using rule 23 (left_value -> ID .)
+    GQ              reduce using rule 23 (left_value -> ID .)
+    NE              reduce using rule 23 (left_value -> ID .)
+    :               reduce using rule 23 (left_value -> ID .)
+    )               reduce using rule 23 (left_value -> ID .)
+    IF              reduce using rule 23 (left_value -> ID .)
+    FOR             reduce using rule 23 (left_value -> ID .)
+    WHILE           reduce using rule 23 (left_value -> ID .)
+    {               reduce using rule 23 (left_value -> ID .)
+    RETURN          reduce using rule 23 (left_value -> ID .)
+    BREAK           reduce using rule 23 (left_value -> ID .)
+    PRINT           reduce using rule 23 (left_value -> ID .)
+    CONTINUE        reduce using rule 23 (left_value -> ID .)
+    ID              reduce using rule 23 (left_value -> ID .)
+    ASSIGN          reduce using rule 23 (left_value -> ID .)
+    PLUSASSIGN      reduce using rule 23 (left_value -> ID .)
+    MINUSASSIGN     reduce using rule 23 (left_value -> ID .)
+    TIMESASSIGN     reduce using rule 23 (left_value -> ID .)
+    DIVIDEASSIGN    reduce using rule 23 (left_value -> ID .)
+    [               shift and go to state 30
+
+
+state 5
+
+    (4) instructions -> instruction .
+
+    IF              reduce using rule 4 (instructions -> instruction .)
+    FOR             reduce using rule 4 (instructions -> instruction .)
+    WHILE           reduce using rule 4 (instructions -> instruction .)
+    {               reduce using rule 4 (instructions -> instruction .)
+    RETURN          reduce using rule 4 (instructions -> instruction .)
+    BREAK           reduce using rule 4 (instructions -> instruction .)
+    PRINT           reduce using rule 4 (instructions -> instruction .)
+    CONTINUE        reduce using rule 4 (instructions -> instruction .)
+    ID              reduce using rule 4 (instructions -> instruction .)
+    $end            reduce using rule 4 (instructions -> instruction .)
+    }               reduce using rule 4 (instructions -> instruction .)
+
+
+state 6
+
+    (0) S' -> program .
+
+
+
+state 7
+
+    (17) one_line_instruction -> BREAK .
+
+    ;               reduce using rule 17 (one_line_instruction -> BREAK .)
+
+
+state 8
+
+    (16) one_line_instruction -> RETURN . expressions
+    (20) expressions -> . expressions , expression
+    (21) expressions -> . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expressions                    shift and go to state 31
+    expression                     shift and go to state 29
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 9
+
+    (11) one_line_instruction -> left_value . ASSIGN expression
+    (12) one_line_instruction -> left_value . PLUSASSIGN expression
+    (13) one_line_instruction -> left_value . MINUSASSIGN expression
+    (14) one_line_instruction -> left_value . TIMESASSIGN expression
+    (15) one_line_instruction -> left_value . DIVIDEASSIGN expression
+
+    ASSIGN          shift and go to state 35
+    PLUSASSIGN      shift and go to state 34
+    MINUSASSIGN     shift and go to state 36
+    TIMESASSIGN     shift and go to state 32
+    DIVIDEASSIGN    shift and go to state 33
+
+
+state 10
+
+    (8) instruction -> WHILE . ( condition ) instruction
+
+    (               shift and go to state 37
+
+
+state 11
+
+    (9) instruction -> { . instructions }
+    (3) instructions -> . instructions instruction
+    (4) instructions -> . instruction
+    (5) instruction -> . IF ( condition ) instruction
+    (6) instruction -> . IF ( condition ) instruction ELSE instruction
+    (7) instruction -> . FOR ID ASSIGN expression : expression instruction
+    (8) instruction -> . WHILE ( condition ) instruction
+    (9) instruction -> . { instructions }
+    (10) instruction -> . one_line_instruction ;
+    (11) one_line_instruction -> . left_value ASSIGN expression
+    (12) one_line_instruction -> . left_value PLUSASSIGN expression
+    (13) one_line_instruction -> . left_value MINUSASSIGN expression
+    (14) one_line_instruction -> . left_value TIMESASSIGN expression
+    (15) one_line_instruction -> . left_value DIVIDEASSIGN expression
+    (16) one_line_instruction -> . RETURN expressions
+    (17) one_line_instruction -> . BREAK
+    (18) one_line_instruction -> . PRINT expressions
+    (19) one_line_instruction -> . CONTINUE
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (25) matrix_id -> . ID [ indexes ]
+
+    IF              shift and go to state 12
+    FOR             shift and go to state 2
+    WHILE           shift and go to state 10
+    {               shift and go to state 11
+    RETURN          shift and go to state 8
+    BREAK           shift and go to state 7
+    PRINT           shift and go to state 3
+    CONTINUE        shift and go to state 14
+    ID              shift and go to state 4
+
+    instruction                    shift and go to state 5
+    one_line_instruction           shift and go to state 15
+    left_value                     shift and go to state 9
+    instructions                   shift and go to state 38
+    matrix_id                      shift and go to state 13
+
+state 12
+
+    (5) instruction -> IF . ( condition ) instruction
+    (6) instruction -> IF . ( condition ) instruction ELSE instruction
+
+    (               shift and go to state 39
+
+
+state 13
+
+    (24) left_value -> matrix_id .
+
+    +               reduce using rule 24 (left_value -> matrix_id .)
+    -               reduce using rule 24 (left_value -> matrix_id .)
+    *               reduce using rule 24 (left_value -> matrix_id .)
+    /               reduce using rule 24 (left_value -> matrix_id .)
+    DOTPLUS         reduce using rule 24 (left_value -> matrix_id .)
+    DOTMINUS        reduce using rule 24 (left_value -> matrix_id .)
+    DOTTIMES        reduce using rule 24 (left_value -> matrix_id .)
+    DOTDIVIDE       reduce using rule 24 (left_value -> matrix_id .)
+    TRANSPOSITION   reduce using rule 24 (left_value -> matrix_id .)
+    ,               reduce using rule 24 (left_value -> matrix_id .)
+    ;               reduce using rule 24 (left_value -> matrix_id .)
+    EQ              reduce using rule 24 (left_value -> matrix_id .)
+    LT              reduce using rule 24 (left_value -> matrix_id .)
+    GT              reduce using rule 24 (left_value -> matrix_id .)
+    LQ              reduce using rule 24 (left_value -> matrix_id .)
+    GQ              reduce using rule 24 (left_value -> matrix_id .)
+    NE              reduce using rule 24 (left_value -> matrix_id .)
+    :               reduce using rule 24 (left_value -> matrix_id .)
+    )               reduce using rule 24 (left_value -> matrix_id .)
+    IF              reduce using rule 24 (left_value -> matrix_id .)
+    FOR             reduce using rule 24 (left_value -> matrix_id .)
+    WHILE           reduce using rule 24 (left_value -> matrix_id .)
+    {               reduce using rule 24 (left_value -> matrix_id .)
+    RETURN          reduce using rule 24 (left_value -> matrix_id .)
+    BREAK           reduce using rule 24 (left_value -> matrix_id .)
+    PRINT           reduce using rule 24 (left_value -> matrix_id .)
+    CONTINUE        reduce using rule 24 (left_value -> matrix_id .)
+    ID              reduce using rule 24 (left_value -> matrix_id .)
+    ASSIGN          reduce using rule 24 (left_value -> matrix_id .)
+    PLUSASSIGN      reduce using rule 24 (left_value -> matrix_id .)
+    MINUSASSIGN     reduce using rule 24 (left_value -> matrix_id .)
+    TIMESASSIGN     reduce using rule 24 (left_value -> matrix_id .)
+    DIVIDEASSIGN    reduce using rule 24 (left_value -> matrix_id .)
+
+
+state 14
+
+    (19) one_line_instruction -> CONTINUE .
+
+    ;               reduce using rule 19 (one_line_instruction -> CONTINUE .)
+
+
+state 15
+
+    (10) instruction -> one_line_instruction . ;
+
+    ;               shift and go to state 40
+
+
+state 16
+
+    (3) instructions -> instructions instruction .
+
+    IF              reduce using rule 3 (instructions -> instructions instruction .)
+    FOR             reduce using rule 3 (instructions -> instructions instruction .)
+    WHILE           reduce using rule 3 (instructions -> instructions instruction .)
+    {               reduce using rule 3 (instructions -> instructions instruction .)
+    RETURN          reduce using rule 3 (instructions -> instructions instruction .)
+    BREAK           reduce using rule 3 (instructions -> instructions instruction .)
+    PRINT           reduce using rule 3 (instructions -> instructions instruction .)
+    CONTINUE        reduce using rule 3 (instructions -> instructions instruction .)
+    ID              reduce using rule 3 (instructions -> instructions instruction .)
+    $end            reduce using rule 3 (instructions -> instructions instruction .)
+    }               reduce using rule 3 (instructions -> instructions instruction .)
+
+
+state 17
+
+    (7) instruction -> FOR ID . ASSIGN expression : expression instruction
+
+    ASSIGN          shift and go to state 41
+
+
+state 18
+
+    (39) expression -> matrix .
+
+    +               reduce using rule 39 (expression -> matrix .)
+    -               reduce using rule 39 (expression -> matrix .)
+    *               reduce using rule 39 (expression -> matrix .)
+    /               reduce using rule 39 (expression -> matrix .)
+    DOTPLUS         reduce using rule 39 (expression -> matrix .)
+    DOTMINUS        reduce using rule 39 (expression -> matrix .)
+    DOTTIMES        reduce using rule 39 (expression -> matrix .)
+    DOTDIVIDE       reduce using rule 39 (expression -> matrix .)
+    TRANSPOSITION   reduce using rule 39 (expression -> matrix .)
+    ,               reduce using rule 39 (expression -> matrix .)
+    ;               reduce using rule 39 (expression -> matrix .)
+    EQ              reduce using rule 39 (expression -> matrix .)
+    LT              reduce using rule 39 (expression -> matrix .)
+    GT              reduce using rule 39 (expression -> matrix .)
+    LQ              reduce using rule 39 (expression -> matrix .)
+    GQ              reduce using rule 39 (expression -> matrix .)
+    NE              reduce using rule 39 (expression -> matrix .)
+    :               reduce using rule 39 (expression -> matrix .)
+    )               reduce using rule 39 (expression -> matrix .)
+    IF              reduce using rule 39 (expression -> matrix .)
+    FOR             reduce using rule 39 (expression -> matrix .)
+    WHILE           reduce using rule 39 (expression -> matrix .)
+    {               reduce using rule 39 (expression -> matrix .)
+    RETURN          reduce using rule 39 (expression -> matrix .)
+    BREAK           reduce using rule 39 (expression -> matrix .)
+    PRINT           reduce using rule 39 (expression -> matrix .)
+    CONTINUE        reduce using rule 39 (expression -> matrix .)
+    ID              reduce using rule 39 (expression -> matrix .)
+
+
+state 19
+
+    (61) expression -> EYE . ( expression )
+
+    (               shift and go to state 42
+
+
+state 20
+
+    (18) one_line_instruction -> PRINT expressions .
+    (20) expressions -> expressions . , expression
+
+    ;               reduce using rule 18 (one_line_instruction -> PRINT expressions .)
+    ,               shift and go to state 43
+
+
+state 21
+
+    (62) expression -> - . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 44
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 22
+
+    (22) expression -> left_value .
+
+    +               reduce using rule 22 (expression -> left_value .)
+    -               reduce using rule 22 (expression -> left_value .)
+    *               reduce using rule 22 (expression -> left_value .)
+    /               reduce using rule 22 (expression -> left_value .)
+    DOTPLUS         reduce using rule 22 (expression -> left_value .)
+    DOTMINUS        reduce using rule 22 (expression -> left_value .)
+    DOTTIMES        reduce using rule 22 (expression -> left_value .)
+    DOTDIVIDE       reduce using rule 22 (expression -> left_value .)
+    TRANSPOSITION   reduce using rule 22 (expression -> left_value .)
+    ,               reduce using rule 22 (expression -> left_value .)
+    ;               reduce using rule 22 (expression -> left_value .)
+    EQ              reduce using rule 22 (expression -> left_value .)
+    LT              reduce using rule 22 (expression -> left_value .)
+    GT              reduce using rule 22 (expression -> left_value .)
+    LQ              reduce using rule 22 (expression -> left_value .)
+    GQ              reduce using rule 22 (expression -> left_value .)
+    NE              reduce using rule 22 (expression -> left_value .)
+    :               reduce using rule 22 (expression -> left_value .)
+    )               reduce using rule 22 (expression -> left_value .)
+    IF              reduce using rule 22 (expression -> left_value .)
+    FOR             reduce using rule 22 (expression -> left_value .)
+    WHILE           reduce using rule 22 (expression -> left_value .)
+    {               reduce using rule 22 (expression -> left_value .)
+    RETURN          reduce using rule 22 (expression -> left_value .)
+    BREAK           reduce using rule 22 (expression -> left_value .)
+    PRINT           reduce using rule 22 (expression -> left_value .)
+    CONTINUE        reduce using rule 22 (expression -> left_value .)
+    ID              reduce using rule 22 (expression -> left_value .)
+
+
+state 23
+
+    (36) expression -> INTEGER .
+
+    +               reduce using rule 36 (expression -> INTEGER .)
+    -               reduce using rule 36 (expression -> INTEGER .)
+    *               reduce using rule 36 (expression -> INTEGER .)
+    /               reduce using rule 36 (expression -> INTEGER .)
+    DOTPLUS         reduce using rule 36 (expression -> INTEGER .)
+    DOTMINUS        reduce using rule 36 (expression -> INTEGER .)
+    DOTTIMES        reduce using rule 36 (expression -> INTEGER .)
+    DOTDIVIDE       reduce using rule 36 (expression -> INTEGER .)
+    TRANSPOSITION   reduce using rule 36 (expression -> INTEGER .)
+    ,               reduce using rule 36 (expression -> INTEGER .)
+    ;               reduce using rule 36 (expression -> INTEGER .)
+    EQ              reduce using rule 36 (expression -> INTEGER .)
+    LT              reduce using rule 36 (expression -> INTEGER .)
+    GT              reduce using rule 36 (expression -> INTEGER .)
+    LQ              reduce using rule 36 (expression -> INTEGER .)
+    GQ              reduce using rule 36 (expression -> INTEGER .)
+    NE              reduce using rule 36 (expression -> INTEGER .)
+    :               reduce using rule 36 (expression -> INTEGER .)
+    )               reduce using rule 36 (expression -> INTEGER .)
+    IF              reduce using rule 36 (expression -> INTEGER .)
+    FOR             reduce using rule 36 (expression -> INTEGER .)
+    WHILE           reduce using rule 36 (expression -> INTEGER .)
+    {               reduce using rule 36 (expression -> INTEGER .)
+    RETURN          reduce using rule 36 (expression -> INTEGER .)
+    BREAK           reduce using rule 36 (expression -> INTEGER .)
+    PRINT           reduce using rule 36 (expression -> INTEGER .)
+    CONTINUE        reduce using rule 36 (expression -> INTEGER .)
+    ID              reduce using rule 36 (expression -> INTEGER .)
+
+
+state 24
+
+    (40) matrix -> [ . vectors ]
+    (41) matrix -> [ . matrix_elements ]
+    (42) vectors -> . vectors , vector
+    (43) vectors -> . vector
+    (45) matrix_elements -> . matrix_elements , ID
+    (46) matrix_elements -> . matrix_elements , FLOAT
+    (47) matrix_elements -> . matrix_elements , INTEGER
+    (48) matrix_elements -> . ID
+    (49) matrix_elements -> . INTEGER
+    (50) matrix_elements -> . FLOAT
+    (44) vector -> . [ matrix_elements ]
+
+    ID              shift and go to state 51
+    INTEGER         shift and go to state 48
+    FLOAT           shift and go to state 50
+    [               shift and go to state 46
+
+    vector                         shift and go to state 45
+    matrix_elements                shift and go to state 47
+    vectors                        shift and go to state 49
+
+state 25
+
+    (60) expression -> ONES . ( expression )
+
+    (               shift and go to state 52
+
+
+state 26
+
+    (38) expression -> STRING .
+
+    +               reduce using rule 38 (expression -> STRING .)
+    -               reduce using rule 38 (expression -> STRING .)
+    *               reduce using rule 38 (expression -> STRING .)
+    /               reduce using rule 38 (expression -> STRING .)
+    DOTPLUS         reduce using rule 38 (expression -> STRING .)
+    DOTMINUS        reduce using rule 38 (expression -> STRING .)
+    DOTTIMES        reduce using rule 38 (expression -> STRING .)
+    DOTDIVIDE       reduce using rule 38 (expression -> STRING .)
+    TRANSPOSITION   reduce using rule 38 (expression -> STRING .)
+    ,               reduce using rule 38 (expression -> STRING .)
+    ;               reduce using rule 38 (expression -> STRING .)
+    EQ              reduce using rule 38 (expression -> STRING .)
+    LT              reduce using rule 38 (expression -> STRING .)
+    GT              reduce using rule 38 (expression -> STRING .)
+    LQ              reduce using rule 38 (expression -> STRING .)
+    GQ              reduce using rule 38 (expression -> STRING .)
+    NE              reduce using rule 38 (expression -> STRING .)
+    :               reduce using rule 38 (expression -> STRING .)
+    )               reduce using rule 38 (expression -> STRING .)
+    IF              reduce using rule 38 (expression -> STRING .)
+    FOR             reduce using rule 38 (expression -> STRING .)
+    WHILE           reduce using rule 38 (expression -> STRING .)
+    {               reduce using rule 38 (expression -> STRING .)
+    RETURN          reduce using rule 38 (expression -> STRING .)
+    BREAK           reduce using rule 38 (expression -> STRING .)
+    PRINT           reduce using rule 38 (expression -> STRING .)
+    CONTINUE        reduce using rule 38 (expression -> STRING .)
+    ID              reduce using rule 38 (expression -> STRING .)
+
+
+state 27
+
+    (37) expression -> FLOAT .
+
+    +               reduce using rule 37 (expression -> FLOAT .)
+    -               reduce using rule 37 (expression -> FLOAT .)
+    *               reduce using rule 37 (expression -> FLOAT .)
+    /               reduce using rule 37 (expression -> FLOAT .)
+    DOTPLUS         reduce using rule 37 (expression -> FLOAT .)
+    DOTMINUS        reduce using rule 37 (expression -> FLOAT .)
+    DOTTIMES        reduce using rule 37 (expression -> FLOAT .)
+    DOTDIVIDE       reduce using rule 37 (expression -> FLOAT .)
+    TRANSPOSITION   reduce using rule 37 (expression -> FLOAT .)
+    ,               reduce using rule 37 (expression -> FLOAT .)
+    ;               reduce using rule 37 (expression -> FLOAT .)
+    EQ              reduce using rule 37 (expression -> FLOAT .)
+    LT              reduce using rule 37 (expression -> FLOAT .)
+    GT              reduce using rule 37 (expression -> FLOAT .)
+    LQ              reduce using rule 37 (expression -> FLOAT .)
+    GQ              reduce using rule 37 (expression -> FLOAT .)
+    NE              reduce using rule 37 (expression -> FLOAT .)
+    :               reduce using rule 37 (expression -> FLOAT .)
+    )               reduce using rule 37 (expression -> FLOAT .)
+    IF              reduce using rule 37 (expression -> FLOAT .)
+    FOR             reduce using rule 37 (expression -> FLOAT .)
+    WHILE           reduce using rule 37 (expression -> FLOAT .)
+    {               reduce using rule 37 (expression -> FLOAT .)
+    RETURN          reduce using rule 37 (expression -> FLOAT .)
+    BREAK           reduce using rule 37 (expression -> FLOAT .)
+    PRINT           reduce using rule 37 (expression -> FLOAT .)
+    CONTINUE        reduce using rule 37 (expression -> FLOAT .)
+    ID              reduce using rule 37 (expression -> FLOAT .)
+
+
+state 28
+
+    (59) expression -> ZEROS . ( expression )
+
+    (               shift and go to state 53
+
+
+state 29
+
+    (21) expressions -> expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    ,               reduce using rule 21 (expressions -> expression .)
+    ;               reduce using rule 21 (expressions -> expression .)
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+
+state 30
+
+    (25) matrix_id -> ID [ . indexes ]
+    (26) indexes -> . indexes , ID
+    (27) indexes -> . indexes , INTEGER
+    (28) indexes -> . INTEGER
+    (29) indexes -> . ID
+
+    INTEGER         shift and go to state 63
+    ID              shift and go to state 65
+
+    indexes                        shift and go to state 64
+
+state 31
+
+    (16) one_line_instruction -> RETURN expressions .
+    (20) expressions -> expressions . , expression
+
+    ;               reduce using rule 16 (one_line_instruction -> RETURN expressions .)
+    ,               shift and go to state 43
+
+
+state 32
+
+    (14) one_line_instruction -> left_value TIMESASSIGN . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    left_value                     shift and go to state 22
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    expression                     shift and go to state 66
+
+state 33
+
+    (15) one_line_instruction -> left_value DIVIDEASSIGN . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    left_value                     shift and go to state 22
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    expression                     shift and go to state 67
+
+state 34
+
+    (12) one_line_instruction -> left_value PLUSASSIGN . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    left_value                     shift and go to state 22
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    expression                     shift and go to state 68
+
+state 35
+
+    (11) one_line_instruction -> left_value ASSIGN . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    left_value                     shift and go to state 22
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    expression                     shift and go to state 69
+
+state 36
+
+    (13) one_line_instruction -> left_value MINUSASSIGN . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    left_value                     shift and go to state 22
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    expression                     shift and go to state 70
+
+state 37
+
+    (8) instruction -> WHILE ( . condition ) instruction
+    (30) condition -> . expression EQ expression
+    (31) condition -> . expression LT expression
+    (32) condition -> . expression GT expression
+    (33) condition -> . expression LQ expression
+    (34) condition -> . expression GQ expression
+    (35) condition -> . expression NE expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    condition                      shift and go to state 71
+    expression                     shift and go to state 72
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 38
+
+    (9) instruction -> { instructions . }
+    (3) instructions -> instructions . instruction
+    (5) instruction -> . IF ( condition ) instruction
+    (6) instruction -> . IF ( condition ) instruction ELSE instruction
+    (7) instruction -> . FOR ID ASSIGN expression : expression instruction
+    (8) instruction -> . WHILE ( condition ) instruction
+    (9) instruction -> . { instructions }
+    (10) instruction -> . one_line_instruction ;
+    (11) one_line_instruction -> . left_value ASSIGN expression
+    (12) one_line_instruction -> . left_value PLUSASSIGN expression
+    (13) one_line_instruction -> . left_value MINUSASSIGN expression
+    (14) one_line_instruction -> . left_value TIMESASSIGN expression
+    (15) one_line_instruction -> . left_value DIVIDEASSIGN expression
+    (16) one_line_instruction -> . RETURN expressions
+    (17) one_line_instruction -> . BREAK
+    (18) one_line_instruction -> . PRINT expressions
+    (19) one_line_instruction -> . CONTINUE
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (25) matrix_id -> . ID [ indexes ]
+
+    }               shift and go to state 73
+    IF              shift and go to state 12
+    FOR             shift and go to state 2
+    WHILE           shift and go to state 10
+    {               shift and go to state 11
+    RETURN          shift and go to state 8
+    BREAK           shift and go to state 7
+    PRINT           shift and go to state 3
+    CONTINUE        shift and go to state 14
+    ID              shift and go to state 4
+
+    instruction                    shift and go to state 16
+    one_line_instruction           shift and go to state 15
+    left_value                     shift and go to state 9
+    matrix_id                      shift and go to state 13
+
+state 39
+
+    (5) instruction -> IF ( . condition ) instruction
+    (6) instruction -> IF ( . condition ) instruction ELSE instruction
+    (30) condition -> . expression EQ expression
+    (31) condition -> . expression LT expression
+    (32) condition -> . expression GT expression
+    (33) condition -> . expression LQ expression
+    (34) condition -> . expression GQ expression
+    (35) condition -> . expression NE expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    condition                      shift and go to state 74
+    expression                     shift and go to state 72
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 40
+
+    (10) instruction -> one_line_instruction ; .
+
+    IF              reduce using rule 10 (instruction -> one_line_instruction ; .)
+    FOR             reduce using rule 10 (instruction -> one_line_instruction ; .)
+    WHILE           reduce using rule 10 (instruction -> one_line_instruction ; .)
+    {               reduce using rule 10 (instruction -> one_line_instruction ; .)
+    RETURN          reduce using rule 10 (instruction -> one_line_instruction ; .)
+    BREAK           reduce using rule 10 (instruction -> one_line_instruction ; .)
+    PRINT           reduce using rule 10 (instruction -> one_line_instruction ; .)
+    CONTINUE        reduce using rule 10 (instruction -> one_line_instruction ; .)
+    ID              reduce using rule 10 (instruction -> one_line_instruction ; .)
+    $end            reduce using rule 10 (instruction -> one_line_instruction ; .)
+    }               reduce using rule 10 (instruction -> one_line_instruction ; .)
+    ELSE            reduce using rule 10 (instruction -> one_line_instruction ; .)
+
+
+state 41
+
+    (7) instruction -> FOR ID ASSIGN . expression : expression instruction
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 75
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 42
+
+    (61) expression -> EYE ( . expression )
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 76
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 43
+
+    (20) expressions -> expressions , . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 77
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 44
+
+    (62) expression -> - expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    +               reduce using rule 62 (expression -> - expression .)
+    -               reduce using rule 62 (expression -> - expression .)
+    *               reduce using rule 62 (expression -> - expression .)
+    /               reduce using rule 62 (expression -> - expression .)
+    DOTPLUS         reduce using rule 62 (expression -> - expression .)
+    DOTMINUS        reduce using rule 62 (expression -> - expression .)
+    DOTTIMES        reduce using rule 62 (expression -> - expression .)
+    DOTDIVIDE       reduce using rule 62 (expression -> - expression .)
+    ,               reduce using rule 62 (expression -> - expression .)
+    ;               reduce using rule 62 (expression -> - expression .)
+    EQ              reduce using rule 62 (expression -> - expression .)
+    LT              reduce using rule 62 (expression -> - expression .)
+    GT              reduce using rule 62 (expression -> - expression .)
+    LQ              reduce using rule 62 (expression -> - expression .)
+    GQ              reduce using rule 62 (expression -> - expression .)
+    NE              reduce using rule 62 (expression -> - expression .)
+    :               reduce using rule 62 (expression -> - expression .)
+    )               reduce using rule 62 (expression -> - expression .)
+    IF              reduce using rule 62 (expression -> - expression .)
+    FOR             reduce using rule 62 (expression -> - expression .)
+    WHILE           reduce using rule 62 (expression -> - expression .)
+    {               reduce using rule 62 (expression -> - expression .)
+    RETURN          reduce using rule 62 (expression -> - expression .)
+    BREAK           reduce using rule 62 (expression -> - expression .)
+    PRINT           reduce using rule 62 (expression -> - expression .)
+    CONTINUE        reduce using rule 62 (expression -> - expression .)
+    ID              reduce using rule 62 (expression -> - expression .)
+    TRANSPOSITION   shift and go to state 56
+
+  ! TRANSPOSITION   [ reduce using rule 62 (expression -> - expression .) ]
+  ! +               [ shift and go to state 54 ]
+  ! -               [ shift and go to state 58 ]
+  ! *               [ shift and go to state 61 ]
+  ! /               [ shift and go to state 62 ]
+  ! DOTPLUS         [ shift and go to state 55 ]
+  ! DOTMINUS        [ shift and go to state 57 ]
+  ! DOTTIMES        [ shift and go to state 59 ]
+  ! DOTDIVIDE       [ shift and go to state 60 ]
+
+
+state 45
+
+    (43) vectors -> vector .
+
+    ]               reduce using rule 43 (vectors -> vector .)
+    ,               reduce using rule 43 (vectors -> vector .)
+
+
+state 46
+
+    (44) vector -> [ . matrix_elements ]
+    (45) matrix_elements -> . matrix_elements , ID
+    (46) matrix_elements -> . matrix_elements , FLOAT
+    (47) matrix_elements -> . matrix_elements , INTEGER
+    (48) matrix_elements -> . ID
+    (49) matrix_elements -> . INTEGER
+    (50) matrix_elements -> . FLOAT
+
+    ID              shift and go to state 51
+    INTEGER         shift and go to state 48
+    FLOAT           shift and go to state 50
+
+    matrix_elements                shift and go to state 78
+
+state 47
+
+    (41) matrix -> [ matrix_elements . ]
+    (45) matrix_elements -> matrix_elements . , ID
+    (46) matrix_elements -> matrix_elements . , FLOAT
+    (47) matrix_elements -> matrix_elements . , INTEGER
+
+    ]               shift and go to state 79
+    ,               shift and go to state 80
+
+
+state 48
+
+    (49) matrix_elements -> INTEGER .
+
+    ]               reduce using rule 49 (matrix_elements -> INTEGER .)
+    ,               reduce using rule 49 (matrix_elements -> INTEGER .)
+
+
+state 49
+
+    (40) matrix -> [ vectors . ]
+    (42) vectors -> vectors . , vector
+
+    ]               shift and go to state 82
+    ,               shift and go to state 81
+
+
+state 50
+
+    (50) matrix_elements -> FLOAT .
+
+    ]               reduce using rule 50 (matrix_elements -> FLOAT .)
+    ,               reduce using rule 50 (matrix_elements -> FLOAT .)
+
+
+state 51
+
+    (48) matrix_elements -> ID .
+
+    ]               reduce using rule 48 (matrix_elements -> ID .)
+    ,               reduce using rule 48 (matrix_elements -> ID .)
+
+
+state 52
+
+    (60) expression -> ONES ( . expression )
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 83
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 53
+
+    (59) expression -> ZEROS ( . expression )
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 84
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 54
+
+    (51) expression -> expression + . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 85
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 55
+
+    (55) expression -> expression DOTPLUS . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 86
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 56
+
+    (63) expression -> expression TRANSPOSITION .
+
+    +               reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    -               reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    *               reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    /               reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    DOTPLUS         reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    DOTMINUS        reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    DOTTIMES        reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    DOTDIVIDE       reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    TRANSPOSITION   reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    ,               reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    ;               reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    EQ              reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    LT              reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    GT              reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    LQ              reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    GQ              reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    NE              reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    :               reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    )               reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    IF              reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    FOR             reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    WHILE           reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    {               reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    RETURN          reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    BREAK           reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    PRINT           reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    CONTINUE        reduce using rule 63 (expression -> expression TRANSPOSITION .)
+    ID              reduce using rule 63 (expression -> expression TRANSPOSITION .)
+
+
+state 57
+
+    (56) expression -> expression DOTMINUS . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 87
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 58
+
+    (52) expression -> expression - . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 88
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 59
+
+    (57) expression -> expression DOTTIMES . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 89
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 60
+
+    (58) expression -> expression DOTDIVIDE . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 90
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 61
+
+    (53) expression -> expression * . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 91
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 62
+
+    (54) expression -> expression / . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 92
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 63
+
+    (28) indexes -> INTEGER .
+
+    ]               reduce using rule 28 (indexes -> INTEGER .)
+    ,               reduce using rule 28 (indexes -> INTEGER .)
+
+
+state 64
+
+    (25) matrix_id -> ID [ indexes . ]
+    (26) indexes -> indexes . , ID
+    (27) indexes -> indexes . , INTEGER
+
+    ]               shift and go to state 93
+    ,               shift and go to state 94
+
+
+state 65
+
+    (29) indexes -> ID .
+
+    ]               reduce using rule 29 (indexes -> ID .)
+    ,               reduce using rule 29 (indexes -> ID .)
+
+
+state 66
+
+    (14) one_line_instruction -> left_value TIMESASSIGN expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    ;               reduce using rule 14 (one_line_instruction -> left_value TIMESASSIGN expression .)
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+
+state 67
+
+    (15) one_line_instruction -> left_value DIVIDEASSIGN expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    ;               reduce using rule 15 (one_line_instruction -> left_value DIVIDEASSIGN expression .)
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+
+state 68
+
+    (12) one_line_instruction -> left_value PLUSASSIGN expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    ;               reduce using rule 12 (one_line_instruction -> left_value PLUSASSIGN expression .)
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+
+state 69
+
+    (11) one_line_instruction -> left_value ASSIGN expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    ;               reduce using rule 11 (one_line_instruction -> left_value ASSIGN expression .)
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+
+state 70
+
+    (13) one_line_instruction -> left_value MINUSASSIGN expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    ;               reduce using rule 13 (one_line_instruction -> left_value MINUSASSIGN expression .)
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+
+state 71
+
+    (8) instruction -> WHILE ( condition . ) instruction
+
+    )               shift and go to state 95
+
+
+state 72
+
+    (30) condition -> expression . EQ expression
+    (31) condition -> expression . LT expression
+    (32) condition -> expression . GT expression
+    (33) condition -> expression . LQ expression
+    (34) condition -> expression . GQ expression
+    (35) condition -> expression . NE expression
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    EQ              shift and go to state 100
+    LT              shift and go to state 101
+    GT              shift and go to state 96
+    LQ              shift and go to state 97
+    GQ              shift and go to state 98
+    NE              shift and go to state 99
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+
+state 73
+
+    (9) instruction -> { instructions } .
+
+    IF              reduce using rule 9 (instruction -> { instructions } .)
+    FOR             reduce using rule 9 (instruction -> { instructions } .)
+    WHILE           reduce using rule 9 (instruction -> { instructions } .)
+    {               reduce using rule 9 (instruction -> { instructions } .)
+    RETURN          reduce using rule 9 (instruction -> { instructions } .)
+    BREAK           reduce using rule 9 (instruction -> { instructions } .)
+    PRINT           reduce using rule 9 (instruction -> { instructions } .)
+    CONTINUE        reduce using rule 9 (instruction -> { instructions } .)
+    ID              reduce using rule 9 (instruction -> { instructions } .)
+    $end            reduce using rule 9 (instruction -> { instructions } .)
+    }               reduce using rule 9 (instruction -> { instructions } .)
+    ELSE            reduce using rule 9 (instruction -> { instructions } .)
+
+
+state 74
+
+    (5) instruction -> IF ( condition . ) instruction
+    (6) instruction -> IF ( condition . ) instruction ELSE instruction
+
+    )               shift and go to state 102
+
+
+state 75
+
+    (7) instruction -> FOR ID ASSIGN expression . : expression instruction
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    :               shift and go to state 103
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+
+state 76
+
+    (61) expression -> EYE ( expression . )
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    )               shift and go to state 104
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+
+state 77
+
+    (20) expressions -> expressions , expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    ,               reduce using rule 20 (expressions -> expressions , expression .)
+    ;               reduce using rule 20 (expressions -> expressions , expression .)
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+
+state 78
+
+    (44) vector -> [ matrix_elements . ]
+    (45) matrix_elements -> matrix_elements . , ID
+    (46) matrix_elements -> matrix_elements . , FLOAT
+    (47) matrix_elements -> matrix_elements . , INTEGER
+
+    ]               shift and go to state 105
+    ,               shift and go to state 80
+
+
+state 79
+
+    (41) matrix -> [ matrix_elements ] .
+
+    EQ              reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    LT              reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    GT              reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    LQ              reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    GQ              reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    NE              reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    +               reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    -               reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    *               reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    /               reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    DOTPLUS         reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    DOTMINUS        reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    DOTTIMES        reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    DOTDIVIDE       reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    TRANSPOSITION   reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    )               reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    ;               reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    ,               reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    :               reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    IF              reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    FOR             reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    WHILE           reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    {               reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    RETURN          reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    BREAK           reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    PRINT           reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    CONTINUE        reduce using rule 41 (matrix -> [ matrix_elements ] .)
+    ID              reduce using rule 41 (matrix -> [ matrix_elements ] .)
+
+
+state 80
+
+    (45) matrix_elements -> matrix_elements , . ID
+    (46) matrix_elements -> matrix_elements , . FLOAT
+    (47) matrix_elements -> matrix_elements , . INTEGER
+
+    ID              shift and go to state 108
+    FLOAT           shift and go to state 106
+    INTEGER         shift and go to state 107
+
+
+state 81
+
+    (42) vectors -> vectors , . vector
+    (44) vector -> . [ matrix_elements ]
+
+    [               shift and go to state 46
+
+    vector                         shift and go to state 109
+
+state 82
+
+    (40) matrix -> [ vectors ] .
+
+    EQ              reduce using rule 40 (matrix -> [ vectors ] .)
+    LT              reduce using rule 40 (matrix -> [ vectors ] .)
+    GT              reduce using rule 40 (matrix -> [ vectors ] .)
+    LQ              reduce using rule 40 (matrix -> [ vectors ] .)
+    GQ              reduce using rule 40 (matrix -> [ vectors ] .)
+    NE              reduce using rule 40 (matrix -> [ vectors ] .)
+    +               reduce using rule 40 (matrix -> [ vectors ] .)
+    -               reduce using rule 40 (matrix -> [ vectors ] .)
+    *               reduce using rule 40 (matrix -> [ vectors ] .)
+    /               reduce using rule 40 (matrix -> [ vectors ] .)
+    DOTPLUS         reduce using rule 40 (matrix -> [ vectors ] .)
+    DOTMINUS        reduce using rule 40 (matrix -> [ vectors ] .)
+    DOTTIMES        reduce using rule 40 (matrix -> [ vectors ] .)
+    DOTDIVIDE       reduce using rule 40 (matrix -> [ vectors ] .)
+    TRANSPOSITION   reduce using rule 40 (matrix -> [ vectors ] .)
+    )               reduce using rule 40 (matrix -> [ vectors ] .)
+    ;               reduce using rule 40 (matrix -> [ vectors ] .)
+    ,               reduce using rule 40 (matrix -> [ vectors ] .)
+    :               reduce using rule 40 (matrix -> [ vectors ] .)
+    IF              reduce using rule 40 (matrix -> [ vectors ] .)
+    FOR             reduce using rule 40 (matrix -> [ vectors ] .)
+    WHILE           reduce using rule 40 (matrix -> [ vectors ] .)
+    {               reduce using rule 40 (matrix -> [ vectors ] .)
+    RETURN          reduce using rule 40 (matrix -> [ vectors ] .)
+    BREAK           reduce using rule 40 (matrix -> [ vectors ] .)
+    PRINT           reduce using rule 40 (matrix -> [ vectors ] .)
+    CONTINUE        reduce using rule 40 (matrix -> [ vectors ] .)
+    ID              reduce using rule 40 (matrix -> [ vectors ] .)
+
+
+state 83
+
+    (60) expression -> ONES ( expression . )
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    )               shift and go to state 110
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+
+state 84
+
+    (59) expression -> ZEROS ( expression . )
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    )               shift and go to state 111
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+
+state 85
+
+    (51) expression -> expression + expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    +               reduce using rule 51 (expression -> expression + expression .)
+    -               reduce using rule 51 (expression -> expression + expression .)
+    DOTPLUS         reduce using rule 51 (expression -> expression + expression .)
+    DOTMINUS        reduce using rule 51 (expression -> expression + expression .)
+    ,               reduce using rule 51 (expression -> expression + expression .)
+    ;               reduce using rule 51 (expression -> expression + expression .)
+    EQ              reduce using rule 51 (expression -> expression + expression .)
+    LT              reduce using rule 51 (expression -> expression + expression .)
+    GT              reduce using rule 51 (expression -> expression + expression .)
+    LQ              reduce using rule 51 (expression -> expression + expression .)
+    GQ              reduce using rule 51 (expression -> expression + expression .)
+    NE              reduce using rule 51 (expression -> expression + expression .)
+    :               reduce using rule 51 (expression -> expression + expression .)
+    )               reduce using rule 51 (expression -> expression + expression .)
+    IF              reduce using rule 51 (expression -> expression + expression .)
+    FOR             reduce using rule 51 (expression -> expression + expression .)
+    WHILE           reduce using rule 51 (expression -> expression + expression .)
+    {               reduce using rule 51 (expression -> expression + expression .)
+    RETURN          reduce using rule 51 (expression -> expression + expression .)
+    BREAK           reduce using rule 51 (expression -> expression + expression .)
+    PRINT           reduce using rule 51 (expression -> expression + expression .)
+    CONTINUE        reduce using rule 51 (expression -> expression + expression .)
+    ID              reduce using rule 51 (expression -> expression + expression .)
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+  ! *               [ reduce using rule 51 (expression -> expression + expression .) ]
+  ! /               [ reduce using rule 51 (expression -> expression + expression .) ]
+  ! DOTTIMES        [ reduce using rule 51 (expression -> expression + expression .) ]
+  ! DOTDIVIDE       [ reduce using rule 51 (expression -> expression + expression .) ]
+  ! TRANSPOSITION   [ reduce using rule 51 (expression -> expression + expression .) ]
+  ! +               [ shift and go to state 54 ]
+  ! -               [ shift and go to state 58 ]
+  ! DOTPLUS         [ shift and go to state 55 ]
+  ! DOTMINUS        [ shift and go to state 57 ]
+
+
+state 86
+
+    (55) expression -> expression DOTPLUS expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    +               reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    -               reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    DOTPLUS         reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    DOTMINUS        reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    ,               reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    ;               reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    EQ              reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    LT              reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    GT              reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    LQ              reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    GQ              reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    NE              reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    :               reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    )               reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    IF              reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    FOR             reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    WHILE           reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    {               reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    RETURN          reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    BREAK           reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    PRINT           reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    CONTINUE        reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    ID              reduce using rule 55 (expression -> expression DOTPLUS expression .)
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+  ! *               [ reduce using rule 55 (expression -> expression DOTPLUS expression .) ]
+  ! /               [ reduce using rule 55 (expression -> expression DOTPLUS expression .) ]
+  ! DOTTIMES        [ reduce using rule 55 (expression -> expression DOTPLUS expression .) ]
+  ! DOTDIVIDE       [ reduce using rule 55 (expression -> expression DOTPLUS expression .) ]
+  ! TRANSPOSITION   [ reduce using rule 55 (expression -> expression DOTPLUS expression .) ]
+  ! +               [ shift and go to state 54 ]
+  ! -               [ shift and go to state 58 ]
+  ! DOTPLUS         [ shift and go to state 55 ]
+  ! DOTMINUS        [ shift and go to state 57 ]
+
+
+state 87
+
+    (56) expression -> expression DOTMINUS expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    +               reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    -               reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    DOTPLUS         reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    DOTMINUS        reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    ,               reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    ;               reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    EQ              reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    LT              reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    GT              reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    LQ              reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    GQ              reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    NE              reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    :               reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    )               reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    IF              reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    FOR             reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    WHILE           reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    {               reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    RETURN          reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    BREAK           reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    PRINT           reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    CONTINUE        reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    ID              reduce using rule 56 (expression -> expression DOTMINUS expression .)
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+  ! *               [ reduce using rule 56 (expression -> expression DOTMINUS expression .) ]
+  ! /               [ reduce using rule 56 (expression -> expression DOTMINUS expression .) ]
+  ! DOTTIMES        [ reduce using rule 56 (expression -> expression DOTMINUS expression .) ]
+  ! DOTDIVIDE       [ reduce using rule 56 (expression -> expression DOTMINUS expression .) ]
+  ! TRANSPOSITION   [ reduce using rule 56 (expression -> expression DOTMINUS expression .) ]
+  ! +               [ shift and go to state 54 ]
+  ! -               [ shift and go to state 58 ]
+  ! DOTPLUS         [ shift and go to state 55 ]
+  ! DOTMINUS        [ shift and go to state 57 ]
+
+
+state 88
+
+    (52) expression -> expression - expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    +               reduce using rule 52 (expression -> expression - expression .)
+    -               reduce using rule 52 (expression -> expression - expression .)
+    DOTPLUS         reduce using rule 52 (expression -> expression - expression .)
+    DOTMINUS        reduce using rule 52 (expression -> expression - expression .)
+    ,               reduce using rule 52 (expression -> expression - expression .)
+    ;               reduce using rule 52 (expression -> expression - expression .)
+    EQ              reduce using rule 52 (expression -> expression - expression .)
+    LT              reduce using rule 52 (expression -> expression - expression .)
+    GT              reduce using rule 52 (expression -> expression - expression .)
+    LQ              reduce using rule 52 (expression -> expression - expression .)
+    GQ              reduce using rule 52 (expression -> expression - expression .)
+    NE              reduce using rule 52 (expression -> expression - expression .)
+    :               reduce using rule 52 (expression -> expression - expression .)
+    )               reduce using rule 52 (expression -> expression - expression .)
+    IF              reduce using rule 52 (expression -> expression - expression .)
+    FOR             reduce using rule 52 (expression -> expression - expression .)
+    WHILE           reduce using rule 52 (expression -> expression - expression .)
+    {               reduce using rule 52 (expression -> expression - expression .)
+    RETURN          reduce using rule 52 (expression -> expression - expression .)
+    BREAK           reduce using rule 52 (expression -> expression - expression .)
+    PRINT           reduce using rule 52 (expression -> expression - expression .)
+    CONTINUE        reduce using rule 52 (expression -> expression - expression .)
+    ID              reduce using rule 52 (expression -> expression - expression .)
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+  ! *               [ reduce using rule 52 (expression -> expression - expression .) ]
+  ! /               [ reduce using rule 52 (expression -> expression - expression .) ]
+  ! DOTTIMES        [ reduce using rule 52 (expression -> expression - expression .) ]
+  ! DOTDIVIDE       [ reduce using rule 52 (expression -> expression - expression .) ]
+  ! TRANSPOSITION   [ reduce using rule 52 (expression -> expression - expression .) ]
+  ! +               [ shift and go to state 54 ]
+  ! -               [ shift and go to state 58 ]
+  ! DOTPLUS         [ shift and go to state 55 ]
+  ! DOTMINUS        [ shift and go to state 57 ]
+
+
+state 89
+
+    (57) expression -> expression DOTTIMES expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    +               reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    -               reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    *               reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    /               reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    DOTPLUS         reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    DOTMINUS        reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    DOTTIMES        reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    DOTDIVIDE       reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    ,               reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    ;               reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    EQ              reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    LT              reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    GT              reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    LQ              reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    GQ              reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    NE              reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    :               reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    )               reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    IF              reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    FOR             reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    WHILE           reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    {               reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    RETURN          reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    BREAK           reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    PRINT           reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    CONTINUE        reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    ID              reduce using rule 57 (expression -> expression DOTTIMES expression .)
+    TRANSPOSITION   shift and go to state 56
+
+  ! TRANSPOSITION   [ reduce using rule 57 (expression -> expression DOTTIMES expression .) ]
+  ! +               [ shift and go to state 54 ]
+  ! -               [ shift and go to state 58 ]
+  ! *               [ shift and go to state 61 ]
+  ! /               [ shift and go to state 62 ]
+  ! DOTPLUS         [ shift and go to state 55 ]
+  ! DOTMINUS        [ shift and go to state 57 ]
+  ! DOTTIMES        [ shift and go to state 59 ]
+  ! DOTDIVIDE       [ shift and go to state 60 ]
+
+
+state 90
+
+    (58) expression -> expression DOTDIVIDE expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    +               reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    -               reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    *               reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    /               reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    DOTPLUS         reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    DOTMINUS        reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    DOTTIMES        reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    DOTDIVIDE       reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    ,               reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    ;               reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    EQ              reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    LT              reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    GT              reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    LQ              reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    GQ              reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    NE              reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    :               reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    )               reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    IF              reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    FOR             reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    WHILE           reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    {               reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    RETURN          reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    BREAK           reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    PRINT           reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    CONTINUE        reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    ID              reduce using rule 58 (expression -> expression DOTDIVIDE expression .)
+    TRANSPOSITION   shift and go to state 56
+
+  ! TRANSPOSITION   [ reduce using rule 58 (expression -> expression DOTDIVIDE expression .) ]
+  ! +               [ shift and go to state 54 ]
+  ! -               [ shift and go to state 58 ]
+  ! *               [ shift and go to state 61 ]
+  ! /               [ shift and go to state 62 ]
+  ! DOTPLUS         [ shift and go to state 55 ]
+  ! DOTMINUS        [ shift and go to state 57 ]
+  ! DOTTIMES        [ shift and go to state 59 ]
+  ! DOTDIVIDE       [ shift and go to state 60 ]
+
+
+state 91
+
+    (53) expression -> expression * expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    +               reduce using rule 53 (expression -> expression * expression .)
+    -               reduce using rule 53 (expression -> expression * expression .)
+    *               reduce using rule 53 (expression -> expression * expression .)
+    /               reduce using rule 53 (expression -> expression * expression .)
+    DOTPLUS         reduce using rule 53 (expression -> expression * expression .)
+    DOTMINUS        reduce using rule 53 (expression -> expression * expression .)
+    DOTTIMES        reduce using rule 53 (expression -> expression * expression .)
+    DOTDIVIDE       reduce using rule 53 (expression -> expression * expression .)
+    ,               reduce using rule 53 (expression -> expression * expression .)
+    ;               reduce using rule 53 (expression -> expression * expression .)
+    EQ              reduce using rule 53 (expression -> expression * expression .)
+    LT              reduce using rule 53 (expression -> expression * expression .)
+    GT              reduce using rule 53 (expression -> expression * expression .)
+    LQ              reduce using rule 53 (expression -> expression * expression .)
+    GQ              reduce using rule 53 (expression -> expression * expression .)
+    NE              reduce using rule 53 (expression -> expression * expression .)
+    :               reduce using rule 53 (expression -> expression * expression .)
+    )               reduce using rule 53 (expression -> expression * expression .)
+    IF              reduce using rule 53 (expression -> expression * expression .)
+    FOR             reduce using rule 53 (expression -> expression * expression .)
+    WHILE           reduce using rule 53 (expression -> expression * expression .)
+    {               reduce using rule 53 (expression -> expression * expression .)
+    RETURN          reduce using rule 53 (expression -> expression * expression .)
+    BREAK           reduce using rule 53 (expression -> expression * expression .)
+    PRINT           reduce using rule 53 (expression -> expression * expression .)
+    CONTINUE        reduce using rule 53 (expression -> expression * expression .)
+    ID              reduce using rule 53 (expression -> expression * expression .)
+    TRANSPOSITION   shift and go to state 56
+
+  ! TRANSPOSITION   [ reduce using rule 53 (expression -> expression * expression .) ]
+  ! +               [ shift and go to state 54 ]
+  ! -               [ shift and go to state 58 ]
+  ! *               [ shift and go to state 61 ]
+  ! /               [ shift and go to state 62 ]
+  ! DOTPLUS         [ shift and go to state 55 ]
+  ! DOTMINUS        [ shift and go to state 57 ]
+  ! DOTTIMES        [ shift and go to state 59 ]
+  ! DOTDIVIDE       [ shift and go to state 60 ]
+
+
+state 92
+
+    (54) expression -> expression / expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    +               reduce using rule 54 (expression -> expression / expression .)
+    -               reduce using rule 54 (expression -> expression / expression .)
+    *               reduce using rule 54 (expression -> expression / expression .)
+    /               reduce using rule 54 (expression -> expression / expression .)
+    DOTPLUS         reduce using rule 54 (expression -> expression / expression .)
+    DOTMINUS        reduce using rule 54 (expression -> expression / expression .)
+    DOTTIMES        reduce using rule 54 (expression -> expression / expression .)
+    DOTDIVIDE       reduce using rule 54 (expression -> expression / expression .)
+    ,               reduce using rule 54 (expression -> expression / expression .)
+    ;               reduce using rule 54 (expression -> expression / expression .)
+    EQ              reduce using rule 54 (expression -> expression / expression .)
+    LT              reduce using rule 54 (expression -> expression / expression .)
+    GT              reduce using rule 54 (expression -> expression / expression .)
+    LQ              reduce using rule 54 (expression -> expression / expression .)
+    GQ              reduce using rule 54 (expression -> expression / expression .)
+    NE              reduce using rule 54 (expression -> expression / expression .)
+    :               reduce using rule 54 (expression -> expression / expression .)
+    )               reduce using rule 54 (expression -> expression / expression .)
+    IF              reduce using rule 54 (expression -> expression / expression .)
+    FOR             reduce using rule 54 (expression -> expression / expression .)
+    WHILE           reduce using rule 54 (expression -> expression / expression .)
+    {               reduce using rule 54 (expression -> expression / expression .)
+    RETURN          reduce using rule 54 (expression -> expression / expression .)
+    BREAK           reduce using rule 54 (expression -> expression / expression .)
+    PRINT           reduce using rule 54 (expression -> expression / expression .)
+    CONTINUE        reduce using rule 54 (expression -> expression / expression .)
+    ID              reduce using rule 54 (expression -> expression / expression .)
+    TRANSPOSITION   shift and go to state 56
+
+  ! TRANSPOSITION   [ reduce using rule 54 (expression -> expression / expression .) ]
+  ! +               [ shift and go to state 54 ]
+  ! -               [ shift and go to state 58 ]
+  ! *               [ shift and go to state 61 ]
+  ! /               [ shift and go to state 62 ]
+  ! DOTPLUS         [ shift and go to state 55 ]
+  ! DOTMINUS        [ shift and go to state 57 ]
+  ! DOTTIMES        [ shift and go to state 59 ]
+  ! DOTDIVIDE       [ shift and go to state 60 ]
+
+
+state 93
+
+    (25) matrix_id -> ID [ indexes ] .
+
+    ASSIGN          reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    PLUSASSIGN      reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    MINUSASSIGN     reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    TIMESASSIGN     reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    DIVIDEASSIGN    reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    EQ              reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    LT              reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    GT              reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    LQ              reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    GQ              reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    NE              reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    +               reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    -               reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    *               reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    /               reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    DOTPLUS         reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    DOTMINUS        reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    DOTTIMES        reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    DOTDIVIDE       reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    TRANSPOSITION   reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    ,               reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    ;               reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    :               reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    )               reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    IF              reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    FOR             reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    WHILE           reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    {               reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    RETURN          reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    BREAK           reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    PRINT           reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    CONTINUE        reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+    ID              reduce using rule 25 (matrix_id -> ID [ indexes ] .)
+
+
+state 94
+
+    (26) indexes -> indexes , . ID
+    (27) indexes -> indexes , . INTEGER
+
+    ID              shift and go to state 112
+    INTEGER         shift and go to state 113
+
+
+state 95
+
+    (8) instruction -> WHILE ( condition ) . instruction
+    (5) instruction -> . IF ( condition ) instruction
+    (6) instruction -> . IF ( condition ) instruction ELSE instruction
+    (7) instruction -> . FOR ID ASSIGN expression : expression instruction
+    (8) instruction -> . WHILE ( condition ) instruction
+    (9) instruction -> . { instructions }
+    (10) instruction -> . one_line_instruction ;
+    (11) one_line_instruction -> . left_value ASSIGN expression
+    (12) one_line_instruction -> . left_value PLUSASSIGN expression
+    (13) one_line_instruction -> . left_value MINUSASSIGN expression
+    (14) one_line_instruction -> . left_value TIMESASSIGN expression
+    (15) one_line_instruction -> . left_value DIVIDEASSIGN expression
+    (16) one_line_instruction -> . RETURN expressions
+    (17) one_line_instruction -> . BREAK
+    (18) one_line_instruction -> . PRINT expressions
+    (19) one_line_instruction -> . CONTINUE
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (25) matrix_id -> . ID [ indexes ]
+
+    IF              shift and go to state 12
+    FOR             shift and go to state 2
+    WHILE           shift and go to state 10
+    {               shift and go to state 11
+    RETURN          shift and go to state 8
+    BREAK           shift and go to state 7
+    PRINT           shift and go to state 3
+    CONTINUE        shift and go to state 14
+    ID              shift and go to state 4
+
+    instruction                    shift and go to state 114
+    one_line_instruction           shift and go to state 15
+    left_value                     shift and go to state 9
+    matrix_id                      shift and go to state 13
+
+state 96
+
+    (32) condition -> expression GT . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 115
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 97
+
+    (33) condition -> expression LQ . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 116
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 98
+
+    (34) condition -> expression GQ . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 117
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 99
+
+    (35) condition -> expression NE . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 118
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 100
+
+    (30) condition -> expression EQ . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 119
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 101
+
+    (31) condition -> expression LT . expression
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 120
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 102
+
+    (5) instruction -> IF ( condition ) . instruction
+    (6) instruction -> IF ( condition ) . instruction ELSE instruction
+    (5) instruction -> . IF ( condition ) instruction
+    (6) instruction -> . IF ( condition ) instruction ELSE instruction
+    (7) instruction -> . FOR ID ASSIGN expression : expression instruction
+    (8) instruction -> . WHILE ( condition ) instruction
+    (9) instruction -> . { instructions }
+    (10) instruction -> . one_line_instruction ;
+    (11) one_line_instruction -> . left_value ASSIGN expression
+    (12) one_line_instruction -> . left_value PLUSASSIGN expression
+    (13) one_line_instruction -> . left_value MINUSASSIGN expression
+    (14) one_line_instruction -> . left_value TIMESASSIGN expression
+    (15) one_line_instruction -> . left_value DIVIDEASSIGN expression
+    (16) one_line_instruction -> . RETURN expressions
+    (17) one_line_instruction -> . BREAK
+    (18) one_line_instruction -> . PRINT expressions
+    (19) one_line_instruction -> . CONTINUE
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (25) matrix_id -> . ID [ indexes ]
+
+    IF              shift and go to state 12
+    FOR             shift and go to state 2
+    WHILE           shift and go to state 10
+    {               shift and go to state 11
+    RETURN          shift and go to state 8
+    BREAK           shift and go to state 7
+    PRINT           shift and go to state 3
+    CONTINUE        shift and go to state 14
+    ID              shift and go to state 4
+
+    instruction                    shift and go to state 121
+    one_line_instruction           shift and go to state 15
+    left_value                     shift and go to state 9
+    matrix_id                      shift and go to state 13
+
+state 103
+
+    (7) instruction -> FOR ID ASSIGN expression : . expression instruction
+    (22) expression -> . left_value
+    (36) expression -> . INTEGER
+    (37) expression -> . FLOAT
+    (38) expression -> . STRING
+    (39) expression -> . matrix
+    (51) expression -> . expression + expression
+    (52) expression -> . expression - expression
+    (53) expression -> . expression * expression
+    (54) expression -> . expression / expression
+    (55) expression -> . expression DOTPLUS expression
+    (56) expression -> . expression DOTMINUS expression
+    (57) expression -> . expression DOTTIMES expression
+    (58) expression -> . expression DOTDIVIDE expression
+    (59) expression -> . ZEROS ( expression )
+    (60) expression -> . ONES ( expression )
+    (61) expression -> . EYE ( expression )
+    (62) expression -> . - expression
+    (63) expression -> . expression TRANSPOSITION
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (40) matrix -> . [ vectors ]
+    (41) matrix -> . [ matrix_elements ]
+    (25) matrix_id -> . ID [ indexes ]
+
+    INTEGER         shift and go to state 23
+    FLOAT           shift and go to state 27
+    STRING          shift and go to state 26
+    ZEROS           shift and go to state 28
+    ONES            shift and go to state 25
+    EYE             shift and go to state 19
+    -               shift and go to state 21
+    ID              shift and go to state 4
+    [               shift and go to state 24
+
+    expression                     shift and go to state 122
+    matrix                         shift and go to state 18
+    matrix_id                      shift and go to state 13
+    left_value                     shift and go to state 22
+
+state 104
+
+    (61) expression -> EYE ( expression ) .
+
+    +               reduce using rule 61 (expression -> EYE ( expression ) .)
+    -               reduce using rule 61 (expression -> EYE ( expression ) .)
+    *               reduce using rule 61 (expression -> EYE ( expression ) .)
+    /               reduce using rule 61 (expression -> EYE ( expression ) .)
+    DOTPLUS         reduce using rule 61 (expression -> EYE ( expression ) .)
+    DOTMINUS        reduce using rule 61 (expression -> EYE ( expression ) .)
+    DOTTIMES        reduce using rule 61 (expression -> EYE ( expression ) .)
+    DOTDIVIDE       reduce using rule 61 (expression -> EYE ( expression ) .)
+    TRANSPOSITION   reduce using rule 61 (expression -> EYE ( expression ) .)
+    ,               reduce using rule 61 (expression -> EYE ( expression ) .)
+    ;               reduce using rule 61 (expression -> EYE ( expression ) .)
+    EQ              reduce using rule 61 (expression -> EYE ( expression ) .)
+    LT              reduce using rule 61 (expression -> EYE ( expression ) .)
+    GT              reduce using rule 61 (expression -> EYE ( expression ) .)
+    LQ              reduce using rule 61 (expression -> EYE ( expression ) .)
+    GQ              reduce using rule 61 (expression -> EYE ( expression ) .)
+    NE              reduce using rule 61 (expression -> EYE ( expression ) .)
+    :               reduce using rule 61 (expression -> EYE ( expression ) .)
+    )               reduce using rule 61 (expression -> EYE ( expression ) .)
+    IF              reduce using rule 61 (expression -> EYE ( expression ) .)
+    FOR             reduce using rule 61 (expression -> EYE ( expression ) .)
+    WHILE           reduce using rule 61 (expression -> EYE ( expression ) .)
+    {               reduce using rule 61 (expression -> EYE ( expression ) .)
+    RETURN          reduce using rule 61 (expression -> EYE ( expression ) .)
+    BREAK           reduce using rule 61 (expression -> EYE ( expression ) .)
+    PRINT           reduce using rule 61 (expression -> EYE ( expression ) .)
+    CONTINUE        reduce using rule 61 (expression -> EYE ( expression ) .)
+    ID              reduce using rule 61 (expression -> EYE ( expression ) .)
+
+
+state 105
+
+    (44) vector -> [ matrix_elements ] .
+
+    ]               reduce using rule 44 (vector -> [ matrix_elements ] .)
+    ,               reduce using rule 44 (vector -> [ matrix_elements ] .)
+
+
+state 106
+
+    (46) matrix_elements -> matrix_elements , FLOAT .
+
+    ]               reduce using rule 46 (matrix_elements -> matrix_elements , FLOAT .)
+    ,               reduce using rule 46 (matrix_elements -> matrix_elements , FLOAT .)
+
+
+state 107
+
+    (47) matrix_elements -> matrix_elements , INTEGER .
+
+    ]               reduce using rule 47 (matrix_elements -> matrix_elements , INTEGER .)
+    ,               reduce using rule 47 (matrix_elements -> matrix_elements , INTEGER .)
+
+
+state 108
+
+    (45) matrix_elements -> matrix_elements , ID .
+
+    ]               reduce using rule 45 (matrix_elements -> matrix_elements , ID .)
+    ,               reduce using rule 45 (matrix_elements -> matrix_elements , ID .)
+
+
+state 109
+
+    (42) vectors -> vectors , vector .
+
+    ]               reduce using rule 42 (vectors -> vectors , vector .)
+    ,               reduce using rule 42 (vectors -> vectors , vector .)
+
+
+state 110
+
+    (60) expression -> ONES ( expression ) .
+
+    +               reduce using rule 60 (expression -> ONES ( expression ) .)
+    -               reduce using rule 60 (expression -> ONES ( expression ) .)
+    *               reduce using rule 60 (expression -> ONES ( expression ) .)
+    /               reduce using rule 60 (expression -> ONES ( expression ) .)
+    DOTPLUS         reduce using rule 60 (expression -> ONES ( expression ) .)
+    DOTMINUS        reduce using rule 60 (expression -> ONES ( expression ) .)
+    DOTTIMES        reduce using rule 60 (expression -> ONES ( expression ) .)
+    DOTDIVIDE       reduce using rule 60 (expression -> ONES ( expression ) .)
+    TRANSPOSITION   reduce using rule 60 (expression -> ONES ( expression ) .)
+    ,               reduce using rule 60 (expression -> ONES ( expression ) .)
+    ;               reduce using rule 60 (expression -> ONES ( expression ) .)
+    EQ              reduce using rule 60 (expression -> ONES ( expression ) .)
+    LT              reduce using rule 60 (expression -> ONES ( expression ) .)
+    GT              reduce using rule 60 (expression -> ONES ( expression ) .)
+    LQ              reduce using rule 60 (expression -> ONES ( expression ) .)
+    GQ              reduce using rule 60 (expression -> ONES ( expression ) .)
+    NE              reduce using rule 60 (expression -> ONES ( expression ) .)
+    :               reduce using rule 60 (expression -> ONES ( expression ) .)
+    )               reduce using rule 60 (expression -> ONES ( expression ) .)
+    IF              reduce using rule 60 (expression -> ONES ( expression ) .)
+    FOR             reduce using rule 60 (expression -> ONES ( expression ) .)
+    WHILE           reduce using rule 60 (expression -> ONES ( expression ) .)
+    {               reduce using rule 60 (expression -> ONES ( expression ) .)
+    RETURN          reduce using rule 60 (expression -> ONES ( expression ) .)
+    BREAK           reduce using rule 60 (expression -> ONES ( expression ) .)
+    PRINT           reduce using rule 60 (expression -> ONES ( expression ) .)
+    CONTINUE        reduce using rule 60 (expression -> ONES ( expression ) .)
+    ID              reduce using rule 60 (expression -> ONES ( expression ) .)
+
+
+state 111
+
+    (59) expression -> ZEROS ( expression ) .
+
+    +               reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    -               reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    *               reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    /               reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    DOTPLUS         reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    DOTMINUS        reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    DOTTIMES        reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    DOTDIVIDE       reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    TRANSPOSITION   reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    ,               reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    ;               reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    EQ              reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    LT              reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    GT              reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    LQ              reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    GQ              reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    NE              reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    :               reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    )               reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    IF              reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    FOR             reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    WHILE           reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    {               reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    RETURN          reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    BREAK           reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    PRINT           reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    CONTINUE        reduce using rule 59 (expression -> ZEROS ( expression ) .)
+    ID              reduce using rule 59 (expression -> ZEROS ( expression ) .)
+
+
+state 112
+
+    (26) indexes -> indexes , ID .
+
+    ]               reduce using rule 26 (indexes -> indexes , ID .)
+    ,               reduce using rule 26 (indexes -> indexes , ID .)
+
+
+state 113
+
+    (27) indexes -> indexes , INTEGER .
+
+    ]               reduce using rule 27 (indexes -> indexes , INTEGER .)
+    ,               reduce using rule 27 (indexes -> indexes , INTEGER .)
+
+
+state 114
+
+    (8) instruction -> WHILE ( condition ) instruction .
+
+    IF              reduce using rule 8 (instruction -> WHILE ( condition ) instruction .)
+    FOR             reduce using rule 8 (instruction -> WHILE ( condition ) instruction .)
+    WHILE           reduce using rule 8 (instruction -> WHILE ( condition ) instruction .)
+    {               reduce using rule 8 (instruction -> WHILE ( condition ) instruction .)
+    RETURN          reduce using rule 8 (instruction -> WHILE ( condition ) instruction .)
+    BREAK           reduce using rule 8 (instruction -> WHILE ( condition ) instruction .)
+    PRINT           reduce using rule 8 (instruction -> WHILE ( condition ) instruction .)
+    CONTINUE        reduce using rule 8 (instruction -> WHILE ( condition ) instruction .)
+    ID              reduce using rule 8 (instruction -> WHILE ( condition ) instruction .)
+    $end            reduce using rule 8 (instruction -> WHILE ( condition ) instruction .)
+    }               reduce using rule 8 (instruction -> WHILE ( condition ) instruction .)
+    ELSE            reduce using rule 8 (instruction -> WHILE ( condition ) instruction .)
+
+
+state 115
+
+    (32) condition -> expression GT expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    )               reduce using rule 32 (condition -> expression GT expression .)
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+
+state 116
+
+    (33) condition -> expression LQ expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    )               reduce using rule 33 (condition -> expression LQ expression .)
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+
+state 117
+
+    (34) condition -> expression GQ expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    )               reduce using rule 34 (condition -> expression GQ expression .)
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+
+state 118
+
+    (35) condition -> expression NE expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    )               reduce using rule 35 (condition -> expression NE expression .)
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+
+state 119
+
+    (30) condition -> expression EQ expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    )               reduce using rule 30 (condition -> expression EQ expression .)
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+
+state 120
+
+    (31) condition -> expression LT expression .
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+
+    )               reduce using rule 31 (condition -> expression LT expression .)
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+
+
+state 121
+
+    (5) instruction -> IF ( condition ) instruction .
+    (6) instruction -> IF ( condition ) instruction . ELSE instruction
+
+    IF              reduce using rule 5 (instruction -> IF ( condition ) instruction .)
+    FOR             reduce using rule 5 (instruction -> IF ( condition ) instruction .)
+    WHILE           reduce using rule 5 (instruction -> IF ( condition ) instruction .)
+    {               reduce using rule 5 (instruction -> IF ( condition ) instruction .)
+    RETURN          reduce using rule 5 (instruction -> IF ( condition ) instruction .)
+    BREAK           reduce using rule 5 (instruction -> IF ( condition ) instruction .)
+    PRINT           reduce using rule 5 (instruction -> IF ( condition ) instruction .)
+    CONTINUE        reduce using rule 5 (instruction -> IF ( condition ) instruction .)
+    ID              reduce using rule 5 (instruction -> IF ( condition ) instruction .)
+    $end            reduce using rule 5 (instruction -> IF ( condition ) instruction .)
+    }               reduce using rule 5 (instruction -> IF ( condition ) instruction .)
+    ELSE            shift and go to state 123
+
+  ! ELSE            [ reduce using rule 5 (instruction -> IF ( condition ) instruction .) ]
+
+
+state 122
+
+    (7) instruction -> FOR ID ASSIGN expression : expression . instruction
+    (51) expression -> expression . + expression
+    (52) expression -> expression . - expression
+    (53) expression -> expression . * expression
+    (54) expression -> expression . / expression
+    (55) expression -> expression . DOTPLUS expression
+    (56) expression -> expression . DOTMINUS expression
+    (57) expression -> expression . DOTTIMES expression
+    (58) expression -> expression . DOTDIVIDE expression
+    (63) expression -> expression . TRANSPOSITION
+    (5) instruction -> . IF ( condition ) instruction
+    (6) instruction -> . IF ( condition ) instruction ELSE instruction
+    (7) instruction -> . FOR ID ASSIGN expression : expression instruction
+    (8) instruction -> . WHILE ( condition ) instruction
+    (9) instruction -> . { instructions }
+    (10) instruction -> . one_line_instruction ;
+    (11) one_line_instruction -> . left_value ASSIGN expression
+    (12) one_line_instruction -> . left_value PLUSASSIGN expression
+    (13) one_line_instruction -> . left_value MINUSASSIGN expression
+    (14) one_line_instruction -> . left_value TIMESASSIGN expression
+    (15) one_line_instruction -> . left_value DIVIDEASSIGN expression
+    (16) one_line_instruction -> . RETURN expressions
+    (17) one_line_instruction -> . BREAK
+    (18) one_line_instruction -> . PRINT expressions
+    (19) one_line_instruction -> . CONTINUE
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (25) matrix_id -> . ID [ indexes ]
+
+    +               shift and go to state 54
+    -               shift and go to state 58
+    *               shift and go to state 61
+    /               shift and go to state 62
+    DOTPLUS         shift and go to state 55
+    DOTMINUS        shift and go to state 57
+    DOTTIMES        shift and go to state 59
+    DOTDIVIDE       shift and go to state 60
+    TRANSPOSITION   shift and go to state 56
+    IF              shift and go to state 12
+    FOR             shift and go to state 2
+    WHILE           shift and go to state 10
+    {               shift and go to state 11
+    RETURN          shift and go to state 8
+    BREAK           shift and go to state 7
+    PRINT           shift and go to state 3
+    CONTINUE        shift and go to state 14
+    ID              shift and go to state 4
+
+    instruction                    shift and go to state 124
+    one_line_instruction           shift and go to state 15
+    left_value                     shift and go to state 9
+    matrix_id                      shift and go to state 13
+
+state 123
+
+    (6) instruction -> IF ( condition ) instruction ELSE . instruction
+    (5) instruction -> . IF ( condition ) instruction
+    (6) instruction -> . IF ( condition ) instruction ELSE instruction
+    (7) instruction -> . FOR ID ASSIGN expression : expression instruction
+    (8) instruction -> . WHILE ( condition ) instruction
+    (9) instruction -> . { instructions }
+    (10) instruction -> . one_line_instruction ;
+    (11) one_line_instruction -> . left_value ASSIGN expression
+    (12) one_line_instruction -> . left_value PLUSASSIGN expression
+    (13) one_line_instruction -> . left_value MINUSASSIGN expression
+    (14) one_line_instruction -> . left_value TIMESASSIGN expression
+    (15) one_line_instruction -> . left_value DIVIDEASSIGN expression
+    (16) one_line_instruction -> . RETURN expressions
+    (17) one_line_instruction -> . BREAK
+    (18) one_line_instruction -> . PRINT expressions
+    (19) one_line_instruction -> . CONTINUE
+    (23) left_value -> . ID
+    (24) left_value -> . matrix_id
+    (25) matrix_id -> . ID [ indexes ]
+
+    IF              shift and go to state 12
+    FOR             shift and go to state 2
+    WHILE           shift and go to state 10
+    {               shift and go to state 11
+    RETURN          shift and go to state 8
+    BREAK           shift and go to state 7
+    PRINT           shift and go to state 3
+    CONTINUE        shift and go to state 14
+    ID              shift and go to state 4
+
+    instruction                    shift and go to state 125
+    one_line_instruction           shift and go to state 15
+    left_value                     shift and go to state 9
+    matrix_id                      shift and go to state 13
+
+state 124
+
+    (7) instruction -> FOR ID ASSIGN expression : expression instruction .
+
+    IF              reduce using rule 7 (instruction -> FOR ID ASSIGN expression : expression instruction .)
+    FOR             reduce using rule 7 (instruction -> FOR ID ASSIGN expression : expression instruction .)
+    WHILE           reduce using rule 7 (instruction -> FOR ID ASSIGN expression : expression instruction .)
+    {               reduce using rule 7 (instruction -> FOR ID ASSIGN expression : expression instruction .)
+    RETURN          reduce using rule 7 (instruction -> FOR ID ASSIGN expression : expression instruction .)
+    BREAK           reduce using rule 7 (instruction -> FOR ID ASSIGN expression : expression instruction .)
+    PRINT           reduce using rule 7 (instruction -> FOR ID ASSIGN expression : expression instruction .)
+    CONTINUE        reduce using rule 7 (instruction -> FOR ID ASSIGN expression : expression instruction .)
+    ID              reduce using rule 7 (instruction -> FOR ID ASSIGN expression : expression instruction .)
+    $end            reduce using rule 7 (instruction -> FOR ID ASSIGN expression : expression instruction .)
+    }               reduce using rule 7 (instruction -> FOR ID ASSIGN expression : expression instruction .)
+    ELSE            reduce using rule 7 (instruction -> FOR ID ASSIGN expression : expression instruction .)
+
+
+state 125
+
+    (6) instruction -> IF ( condition ) instruction ELSE instruction .
+
+    IF              reduce using rule 6 (instruction -> IF ( condition ) instruction ELSE instruction .)
+    FOR             reduce using rule 6 (instruction -> IF ( condition ) instruction ELSE instruction .)
+    WHILE           reduce using rule 6 (instruction -> IF ( condition ) instruction ELSE instruction .)
+    {               reduce using rule 6 (instruction -> IF ( condition ) instruction ELSE instruction .)
+    RETURN          reduce using rule 6 (instruction -> IF ( condition ) instruction ELSE instruction .)
+    BREAK           reduce using rule 6 (instruction -> IF ( condition ) instruction ELSE instruction .)
+    PRINT           reduce using rule 6 (instruction -> IF ( condition ) instruction ELSE instruction .)
+    CONTINUE        reduce using rule 6 (instruction -> IF ( condition ) instruction ELSE instruction .)
+    ID              reduce using rule 6 (instruction -> IF ( condition ) instruction ELSE instruction .)
+    $end            reduce using rule 6 (instruction -> IF ( condition ) instruction ELSE instruction .)
+    }               reduce using rule 6 (instruction -> IF ( condition ) instruction ELSE instruction .)
+    ELSE            reduce using rule 6 (instruction -> IF ( condition ) instruction ELSE instruction .)
+
