@@ -139,12 +139,10 @@ class TypeChecker(NodeVisitor):
             if _type is MATRIX:
                 dimensions = self.operations.check_dimensions(op, l_value, r_value)
                 if dimensions is not None:
-                    print("Array assignment" + l_value + op + r_value)
                     self.table.put(l_value.name, ArraySymbol(l_value.name, r_value.dimensions))
                 else:
-                    print("Wrong Array assignment" + l_value + op + r_value)
+                    print("Line {}: Wrong Array assignment".format(node.line) + l_value + op + r_value)
             else:
-                print("Variable Assignment" + l_value + op + r_value)
                 self.table.put(l_value.name, VariableSymbol(l_value.name, r_value.type))
         elif isinstance(l_value, VariableSymbol) and isinstance(r_value, ArraySymbol):
             new_l = ArraySymbol(l_value.name, r_value.dimensions)
@@ -152,7 +150,7 @@ class TypeChecker(NodeVisitor):
         elif isinstance(l_value, VariableSymbol):
             l_value.type = r_value.type
         else:
-            print("Wrong Assignment" + str(l_value) + op + str(r_value))
+            print("Line {}: Wrong Assignment".format(node.line) + str(l_value) + op + str(r_value))
 
     def visit_Expressions(self, node):
         if node.expressions is not None:
@@ -161,11 +159,11 @@ class TypeChecker(NodeVisitor):
 
     def visit_Break(self, node):
         if not self.loop_iterator > 0:
-            print("BREAK outside loop function")
+            print("Line {}: BREAK outside loop function".format(node.line))
 
     def visit_Continue(self, node):
         if not self.loop_iterator > 0:
-            print("CONTINUE outside loop function")
+            print("Line {}: CONTINUE outside loop function".format(node.line))
 
     def visit_Return(self, node):
         if node.expressions is not None:
@@ -188,14 +186,14 @@ class TypeChecker(NodeVisitor):
         var = self.table.get(node.name)
         self.visit(node.indexes)
         if var is None:
-            print("Unknown reference to {}".format(node.name))
+            print("Line {0}: Unknown reference to {1}".format(node.line, node.name))
         else:
             dimensions = var.dimensions
             if len(node.indexes.indexes) > len(dimensions):
-                print("Dimensions out of bounds at {}".format(node.name))
+                print("Line {0}: Dimensions out of bounds at {1}".format(node.line, node.name))
             for i, index in enumerate(node.indexes.indexes):
                 if index.value > dimensions[i]:
-                    print("Index out of bounds: {0}, dimension limit: {1}".format(index.value, dimensions[i]))
+                    print("Line {0}: Index out of bounds: {1}, dimension limit: {2}".format(node.line, index.value, dimensions[i]))
         return VariableSymbol(None, None)
 
     def visit_Indexes(self, node):
@@ -228,7 +226,7 @@ class TypeChecker(NodeVisitor):
         vector_lengths = [len(v.numbers) for v in node.vectors]
         vector_no = len(node.vectors)
         if len(set(vector_lengths)) != 1:
-            print("Wrong Vector sizes, must be of same length in one matrix")
+            print("Line {}: Wrong Vector sizes, must be of same length in one matrix".format(node.line))
 
         return ArraySymbol(None, [vector_no, vector_lengths.pop()])
 
@@ -240,9 +238,9 @@ class TypeChecker(NodeVisitor):
             _types.add(_type.type)
             vector_length += 1
             if _type.type not in [INT, FLOAT]:
-                print("Wrong Vector values! they can only by Int or Float, got: {}".format(_type))
+                print("Line {0}: Wrong Vector values! they can only by Int or Float, got: {1}".format(node.line, _type))
             if len(_types) != 1:
-                print("Wrong Vector types with more than one type: {}".format(_types))
+                print("Line {0}: Wrong Vector types with more than one type: {1}".format(node.line, _types))
         return ArraySymbol(None, [vector_length])
 
     def visit_BinaryExpression(self, node):
@@ -254,12 +252,12 @@ class TypeChecker(NodeVisitor):
         if _type is MATRIX:
             dims = self.operations.check_dimensions(op. left, right)
             if dims is None:
-                print("Wrong dimensions in binary expression: {0} {1} {2}".format(str(left), op, str(right)))
+                print("Line {0}: Wrong dimensions in binary expression: {1} {2} {3}".format(node.line, str(left), op, str(right)))
                 return ArraySymbol(None, None)
             else:
                 return ArraySymbol(None, dims)
         elif _type is None:
-            print("Wrong Binary Expression: {0} {1} {2}".format(str(left), op, str(right)))
+            print("Line {0}: Wrong Binary Expression: {1} {2} {3}".format(node.line, str(left), op, str(right)))
         return VariableSymbol(None, _type)
 
     def visit_UnaryNegation(self, node):
@@ -277,7 +275,7 @@ class TypeChecker(NodeVisitor):
     def  visit_MatrixFunctions(self, node):
         _type = self.visit(node.expression)
         if _type.type is not INT:
-            print("Matrix function's argument must be INT")
+            print("Line {}: Matrix function's argument must be INT".format(node.line))
 
         return ArraySymbol(None, [node.expression.value, node.expression.value])
 

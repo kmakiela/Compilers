@@ -58,10 +58,11 @@ class While(Node):
 
 
 class Assign(Node):
-    def __init__(self, l_value, operator, expression):
+    def __init__(self, l_value, operator, expression, line):
         self.l_value = l_value
         self.operator = operator
         self.expression = expression
+        self.line = line
 
 
 class Expressions(Node):
@@ -73,13 +74,15 @@ class Expressions(Node):
 
 
 class Break(Node):
-    def __init__(self):
+    def __init__(self, line):
         self._break = "BREAK"
+        self.line = line
 
 
 class Continue(Node):
-    def __init__(self):
+    def __init__(self, line):
         self._continue = "CONTINUE"
+        self.line = line
 
 
 class Return(Node):
@@ -100,10 +103,11 @@ class Variable(Node):
 
 
 class Reference(Node):
-    def __init__(self, name, indexes):
+    def __init__(self, name, indexes, line):
         self.reference = "REF"
         self.name = name
         self.indexes = indexes
+        self.line = line
 
 
 class Indexes(Node):
@@ -137,28 +141,31 @@ class String(Node):
 
 
 class Matrix(Node):
-    def __init__(self, vector):
+    def __init__(self, vector, line):
         self.vector = "VECTOR"
         self.vectors = [vector]
+        self.line = line
 
     def add_vector(self, vector):
         self.vectors.append(vector)
 
 
 class Vector(Node):
-    def __init__(self, number):
+    def __init__(self, number, line):
         self.vector = "VECTOR"
         self.numbers = [number]
+        self.line = line
 
     def add_number(self, number):
         self.numbers.append(number)
 
 
 class BinaryExpression(Node):
-    def __init__(self, left, operator, right):
+    def __init__(self, left, operator, right, line):
         self.left = left
         self.operator = operator
         self.right = right
+        self.line = line
 
 
 class UnaryNegation(Node):
@@ -174,9 +181,10 @@ class Transposition(Node):
 
 
 class MatrixFunctions(Node):
-    def __init__(self, function, expression):
+    def __init__(self, function, expression, line):
         self.function = function
         self.expression = expression
+        self.line = line
 
 
 class Error(Node):

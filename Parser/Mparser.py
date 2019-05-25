@@ -82,7 +82,7 @@ def p_assign(p):
         | left_value MINUSASSIGN expression
         | left_value TIMESASSIGN expression
         | left_value DIVIDEASSIGN expression"""
-    p[0] = AST.Assign(p[1], p[2], p[3])
+    p[0] = AST.Assign(p[1], p[2], p[3], p.lineno(2))
 
 
 def p_instruction_return(p):
@@ -92,7 +92,7 @@ def p_instruction_return(p):
 
 def p_instruction_break(p):
     """one_line_instruction : BREAK"""
-    p[0] = AST.Break()
+    p[0] = AST.Break(p.lineno(1))
 
 
 def p_instruction_print(p):
@@ -102,7 +102,7 @@ def p_instruction_print(p):
 
 def p_instruction_continue(p):
     """one_line_instruction : CONTINUE"""
-    p[0] = AST.Continue()
+    p[0] = AST.Continue(p.lineno(1))
 
 
 def p_expressions(p):
@@ -132,7 +132,7 @@ def p_left_value_matrix(p):
 
 def p_matrix_id(p):
     """matrix_id : ID '[' indexes ']'"""
-    p[0] = AST.Reference(p[1], p[3])
+    p[0] = AST.Reference(p[1], p[3], p.lineno(2))
 
 
 def p_indexes(p):
@@ -192,7 +192,7 @@ def p_vectors(p):
         p[0] = p[1]
         p[0].add_vector(p[3])
     else:
-        p[0] = AST.Matrix(p[1])
+        p[0] = AST.Matrix(p[1], p.lineno(1))
 
 
 def p_vector(p):
@@ -214,7 +214,7 @@ def p_matrix_elements(p):
         p[0] = p[1]
         p[0].add_number(check_type(p[3]))
     elif len(p) == 2:
-        p[0] = AST.Vector(check_type(p[1]))
+        p[0] = AST.Vector(check_type(p[1]), p.lineno(1))
 
 
 def p_operators(p):
@@ -222,7 +222,7 @@ def p_operators(p):
         | expression '-' expression
         | expression '*' expression
         | expression '/' expression"""
-    p[0] = AST.BinaryExpression(p[1], p[2], p[3])
+    p[0] = AST.BinaryExpression(p[1], p[2], p[3], p.lineno(2))
 
 
 def p_dot_operators(p):
@@ -230,14 +230,14 @@ def p_dot_operators(p):
         | expression DOTMINUS expression
         | expression DOTTIMES expression
         | expression DOTDIVIDE expression"""
-    p[0] = AST.BinaryExpression(p[1], p[2], p[3])
+    p[0] = AST.BinaryExpression(p[1], p[2], p[3], p.lineno(2))
 
 
 def p_array_functions(p):
     """expression : ZEROS '(' expression ')'
         | ONES '(' expression ')'
         | EYE '(' expression ')'"""
-    p[0] = AST.MatrixFunctions(p[1], p[3])
+    p[0] = AST.MatrixFunctions(p[1], p[3], p.lineno(1))
 
 
 def p_unary_negation(p):
