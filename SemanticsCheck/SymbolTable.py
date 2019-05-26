@@ -27,7 +27,7 @@ class FunctionSymbol(Symbol):
 
 class ArraySymbol(VariableSymbol):
     def __init__(self, name, dimensions):
-        super().__init__(name, "array")
+        super().__init__(name, 'matrix')
         self.dimensions = dimensions
 
     def __repr__(self):

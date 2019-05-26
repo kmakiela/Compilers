@@ -32,11 +32,11 @@ class Operations(object):
             self.possible_types[op][INT][VECTOR] = VECTOR
             self.possible_types[op][FLOAT][VECTOR] = VECTOR
             self.possible_types[op][VECTOR][FLOAT] = VECTOR
-            self.possible_types[op][MATRIX][MATRIX] = VECTOR
-            self.possible_types[op][MATRIX][INT] = VECTOR
-            self.possible_types[op][MATRIX][FLOAT] = VECTOR
-            self.possible_types[op][INT][MATRIX] = VECTOR
-            self.possible_types[op][FLOAT][MATRIX] = VECTOR
+            self.possible_types[op][MATRIX][MATRIX] = MATRIX
+            self.possible_types[op][MATRIX][INT] = MATRIX
+            self.possible_types[op][MATRIX][FLOAT] = MATRIX
+            self.possible_types[op][INT][MATRIX] = MATRIX
+            self.possible_types[op][FLOAT][MATRIX] = MATRIX
 
         for op in comparison_operators:
             self.possible_types[op][INT][INT] = BOOL
@@ -247,10 +247,9 @@ class TypeChecker(NodeVisitor):
         left = self.visit(node.left)
         op = node.operator
         right = self.visit(node.right)
-
         _type = self.operations.get_result_type(op, left, right)
         if _type is MATRIX:
-            dims = self.operations.check_dimensions(op. left, right)
+            dims = self.operations.check_dimensions(op, left, right)
             if dims is None:
                 print("Line {0}: Wrong dimensions in binary expression: {1} {2} {3}".format(node.line, str(left), op, str(right)))
                 return ArraySymbol(None, None)

@@ -1,6 +1,5 @@
 
 from SyntaxTree import AST
-from SemanticsCheck import SymbolTable
 from Interpreter.Memory import *
 from Interpreter.Exceptions import *
 from Interpreter.visit import *
@@ -29,7 +28,10 @@ class OperatorFunctions(object):
             '<=': (lambda x, y: x <= y),
             '<': (lambda x, y: x < y),
 
-            # TODO dot operators
+            '.+': (lambda x, y: (np.matrix(x) + np.matrix(y)).tolist()),
+            '.-': (lambda x, y: (np.matrix(x) - np.matrix(y)).tolist()),
+            '.*': (lambda x, y: np.multiply(np.array(x), np.array(y)).tolist()),
+            './': (lambda x, y: np.divide(np.array(x), np.array(y)).tolist())
         }
 
 
