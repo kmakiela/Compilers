@@ -1,7 +1,8 @@
 
 
 class Node(object):
-    pass
+    def accept(self, visitor):
+        return visitor.visit(self)
 
 
 class Program(Node):

@@ -58,7 +58,7 @@ def p_instruction_if_else(p):
 
 def p_instruction_for(p):
     """instruction : FOR ID ASSIGN expression ':' expression instruction"""
-    p[0] = AST.For(p[2], p[4], p[6], p[7])
+    p[0] = AST.For(AST.Variable(p[2]), p[4], p[6], p[7])
 
 
 def p_instruction_while(p):
