@@ -168,7 +168,7 @@ class Interpreter(object):
 
     @when(AST.String)
     def visit(self, node):
-        return node.name
+        return node.name[1:-1]
 
     @when(AST.Matrix)
     def visit(self, node):

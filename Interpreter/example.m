@@ -7,7 +7,7 @@ for x = 1:4 {
 }
 
 while (x < 9) {
-    print "HAHA" * x;
+    print "( ͡° ͜ʖ ͡°) " * x;
     x += 1;
 }
 
